@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-public class Solution {
+public class ValidParenthesesEx {
     
     public bool isWellFormed(char parOpen, char parClose) {
         if (parOpen == '(' && parClose == ')') {
