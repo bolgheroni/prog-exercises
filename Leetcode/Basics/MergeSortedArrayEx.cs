@@ -1,30 +1,31 @@
 public class MergeSortedArrayEx {
     public void Merge(int[] nums1, int m, int[] nums2, int n) {
-        int[] newArr = new int[n + m];
-        int i = 0;
-        int j = 0;
-        int k = 0;
-        while (i < m || j < n) {
+        int nums1Left = m -1;
+        int nums2Left = n -1;
+        int k = m + n -1;
+
+        // every iteration we subcract from one of them
+        // n + m iterations
+        while (nums1Left >= 0 || nums2Left >= 0) {
             int value;
-            if (i >= m) {
-                value = nums2[j];
-                j++;
-            } else if (j >= n) {
-                value = nums1[i];
-                i++;
+            if (nums1Left < 0) {
+                value = nums2[nums2Left];
+                nums2Left--;
+            } else if (nums2Left < 0) {
+                value = nums1[nums1Left];
+                nums1Left--;
             } else {
-                value = Math.Min(nums1[i], nums2[j]);
-                if (value == nums1[i]) {
-                    i++;
+                // there are numbers left in both
+                value = Math.Max(nums1[nums1Left], nums2[nums2Left]);
+                if (value == nums1[nums1Left]) {
+                    nums1Left--;
                 } else {
-                    j++;
+                    nums2Left--;
                 }
             }
-            newArr[k] = value;
-            k++;
-        }
-        for (int l =0; l < m +n; l++) {
-            nums1[l] = newArr[l];
+            // we store at the end of nums1 arr
+            nums1[k] = value;
+            k--;
         }
     }
 }
