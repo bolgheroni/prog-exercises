@@ -2,7 +2,6 @@ public class MergeSortedArrayEx {
     public void Merge(int[] nums1, int m, int[] nums2, int n) {
         int nums1Left = m -1;
         int nums2Left = n -1;
-        int k = m + n -1;
 
         // every iteration we subcract from one of them
         // n + m iterations
@@ -24,8 +23,7 @@ public class MergeSortedArrayEx {
                 }
             }
             // we store at the end of nums1 arr
-            nums1[k] = value;
-            k--;
+            nums1[nums1Left + nums2Left + 2] = value;
         }
     }
 }
