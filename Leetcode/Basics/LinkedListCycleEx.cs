@@ -16,16 +16,16 @@ public class LinkedListCycleEx {
         if (head == null) {
             return false;
         }
-        
-        HashSet<ListNode> nodeSet = new HashSet<ListNode>();
-        ListNode currentNode = head;
 
-        while (currentNode.next != null) {
-            if (nodeSet.Contains(currentNode)) {
+        var current = head;
+
+        while (current.next != null) {
+            if (current.next.Equals(head)) {
                 return true;
-            } 
-            nodeSet.Add(currentNode);
-            currentNode = currentNode.next;
+            }
+            var oldCurrent = current;
+            current = oldCurrent.next;
+            oldCurrent.next = head;
         }
 
         return false;
