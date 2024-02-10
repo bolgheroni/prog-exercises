@@ -27,14 +27,10 @@ public class MinStack {
             next = this._StackHead.next,
             minAtPushTime = this._MinNode
         };
-        Node newMin;
 
-        if (this._MinNode != null && this._MinNode.val < val) {
-            newMin = this._MinNode;
-        } else {
-            newMin = newNode;
-        }
-        this._MinNode = newMin;
+        if (this._MinNode == null || this._MinNode.val > val) {
+            this._MinNode = newNode;
+        } 
         this._StackHead.next = newNode;
 
     }
@@ -50,7 +46,6 @@ public class MinStack {
     
     // return _Head.next
     public int Top() {
-        Console.WriteLine("Getting top: ");
         if (this._StackHead.next != null) {
             return this._StackHead.next.val;
         }
