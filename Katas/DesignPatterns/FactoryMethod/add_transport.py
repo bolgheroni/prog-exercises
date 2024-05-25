@@ -1,5 +1,6 @@
 from transport import Transport
 from typing import List
+from transport_factory import create_transport
 
 def add_transport(transports_list: List[Transport]):
     print("Add new transport \n")
@@ -8,11 +9,9 @@ def add_transport(transports_list: List[Transport]):
     print("1. Truck")
     # print("     2. Ship")
 
-    transport_type = input("Choose a transport type: ")
-    createdTransport = Transport(
-        type="Truck",
-        capacity=50,
-        speed_km_h=100,
+    transport_code = input("Choose a transport type: ")
+    createdTransport = create_transport(
+        transport_code=int(transport_code),
         distance_km=distance_km,
         id=len(transports_list) + 1
     )

@@ -1,0 +1,2 @@
+TRUCK_CODE = 1
+SHIP_CODE = 2

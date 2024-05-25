@@ -1,4 +1,6 @@
-class Transport:
+from abc import ABC
+
+class Transport(ABC):
     def __init__(self, type: str, capacity: int, speed_km_h: float, distance_km: float, id: int) -> None:
         self.type = type
         self.capacity = capacity
@@ -30,3 +32,11 @@ class Transport:
             return f"{self.id}#{self.type} with capacity {self.capacity}, already deployed! ETA: {eta} hours."
         
         return f"{self.id}#{self.type} with capacity {self.capacity} not deployed yet."
+
+class TruckTransport(Transport):
+    def __init__(self, distance_km: float, id: int) -> None:
+        super().__init__("Truck", 50, 100, distance_km, id)
+
+class ShipTransport(Transport):
+    def __init__(self, distance_km: float, id: int) -> None:
+        super().__init__("Ship", 500, 50, distance_km, id)
