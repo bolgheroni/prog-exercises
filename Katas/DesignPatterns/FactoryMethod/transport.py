@@ -1,10 +1,11 @@
 class Transport:
-    def __init__(self, type: str, capacity: int, speed_km_h: float, distance_km: float) -> None:
+    def __init__(self, type: str, capacity: int, speed_km_h: float, distance_km: float, id: int) -> None:
         self.type = type
         self.capacity = capacity
         self.speed_km_h = speed_km_h
         self.distance_km = distance_km
         self.deployment_time_hour = None
+        self.id = id
     
     def deploy(self, current_hour: int):
         if self.deployment_time_hour != None:
@@ -26,8 +27,8 @@ class Transport:
         if self.is_deployed():
             eta = self.get_eta()
             if eta < 0:
-                return f"{self.type} with capacity {self.capacity} deployed at {self.deployment_time_hour} hours. Already arrived."
+                return f"{self.id}#{self.type} with capacity {self.capacity} deployed at {self.deployment_time_hour} hours. Already arrived."
             
-            return f"{self.type} with capacity {self.capacity} deployed at {self.deployment_time_hour} hours. ETA: {eta} hours."
+            return f"{self.id}#{self.type} with capacity {self.capacity} deployed at {self.deployment_time_hour} hours. ETA: {eta} hours."
         
-        return f"{self.type} with capacity {self.capacity} not deployed yet."
+        return f"{self.id}#{self.type} with capacity {self.capacity} not deployed yet."

@@ -1,5 +1,6 @@
 from transport import Transport
 from add_transport import add_transport
+from list_transports import list_transports
 from typing import List
 
 def main():
@@ -7,7 +8,7 @@ def main():
     transports_list: List[Transport] = []
     print("Factory Method Pattern \n")
     print("----------------------\n")
-    while action != "3":
+    while action != "4":
         print("\n")
         print("----------------------\n")
         print("Actions: \n")
@@ -19,8 +20,7 @@ def main():
         action = input("Choose an action: ")
 
         if action == "1":
-            print("List ongoing transports")
-            input("Press enter to continue...")
+            list_transports(transports_list)
         
         if action == "2":
             add_transport(transports_list)
