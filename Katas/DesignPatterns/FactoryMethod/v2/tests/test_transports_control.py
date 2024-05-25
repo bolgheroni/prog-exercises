@@ -1,7 +1,10 @@
 from v2.src.transports_control import TransportsControl
+from v2.src.transport_factory import TransportFactory
 
 def make_sut():
-    return TransportsControl()
+    return TransportsControl(
+        transport_factory=TransportFactory()
+    )
 
 def test_creates_truck():
     sut = make_sut()
