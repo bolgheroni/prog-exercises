@@ -31,6 +31,6 @@ def create_transport(transport_code: int, id: int):
     if transport_code == constants.TRUCK_CODE:
         return TruckTransportFactory().create_transport(id)
     if transport_code == constants.SHIP_CODE:
-        return ShipTransportFactory.create_transport(id)
+        return ShipTransportFactory().create_transport(id)
     raise ValueError("Invalid transport code.")
         
