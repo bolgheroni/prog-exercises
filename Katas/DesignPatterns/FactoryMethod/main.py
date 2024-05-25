@@ -1,6 +1,7 @@
 from transport import Transport
 from add_transport import add_transport
 from list_transports import list_transports
+from deploy_transport import deploy_transport
 from typing import List
 
 def main():
@@ -24,6 +25,9 @@ def main():
         
         if action == "2":
             add_transport(transports_list)
+        
+        if action == "3":
+            deploy_transport(transports_list)
         
 
 

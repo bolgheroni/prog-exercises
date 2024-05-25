@@ -8,4 +8,3 @@ def list_transports(transports_list: List[Transport]):
         print("No transports available.")
     for transport in transports_list:
         print(transport)
-    input("Press enter to continue...")
