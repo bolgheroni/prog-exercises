@@ -37,6 +37,18 @@ class TruckTransport(Transport):
     def __init__(self, distance_km: float, id: int) -> None:
         super().__init__("Truck", 50, 100, distance_km, id)
 
+    def get_eta(self):
+        base_eta = super().get_eta()
+        # has to stop for refueling every 200 km
+        refuel_stops = self.distance_km // 200
+        return base_eta + refuel_stops * 0.5
+
 class ShipTransport(Transport):
-    def __init__(self, distance_km: float, id: int) -> None:
-        super().__init__("Ship", 500, 50, distance_km, id)
+    def __init__(self, distance_km: float, id: int, crew_amount: int = 10) -> None:
+        super().__init__("Ship", 500, 50 - crew_amount / 10, distance_km, id)
+
+    def get_eta(self):
+        base_eta = super().get_eta()
+        # has to stop for refueling every 1000 km
+        refuel_stops = self.distance_km // 1000
+        return base_eta + refuel_stops * 4
