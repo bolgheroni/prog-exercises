@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/robertobolgheroni/Documents/Personal/Repos/prog-exercises/Leetcode/Basics/Basics.csproj": {}
+    "/home/robertobolgheroni/Documents/Personal/Repos/prog-exercises/Exercises/Leetcode/Basics/Basics.csproj": {}
   },
   "projects": {
-    "/home/robertobolgheroni/Documents/Personal/Repos/prog-exercises/Leetcode/Basics/Basics.csproj": {
+    "/home/robertobolgheroni/Documents/Personal/Repos/prog-exercises/Exercises/Leetcode/Basics/Basics.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/robertobolgheroni/Documents/Personal/Repos/prog-exercises/Leetcode/Basics/Basics.csproj",
+        "projectUniqueName": "/home/robertobolgheroni/Documents/Personal/Repos/prog-exercises/Exercises/Leetcode/Basics/Basics.csproj",
         "projectName": "Basics",
-        "projectPath": "/home/robertobolgheroni/Documents/Personal/Repos/prog-exercises/Leetcode/Basics/Basics.csproj",
+        "projectPath": "/home/robertobolgheroni/Documents/Personal/Repos/prog-exercises/Exercises/Leetcode/Basics/Basics.csproj",
         "packagesPath": "/home/robertobolgheroni/.nuget/packages/",
-        "outputPath": "/home/robertobolgheroni/Documents/Personal/Repos/prog-exercises/Leetcode/Basics/obj/",
+        "outputPath": "/home/robertobolgheroni/Documents/Personal/Repos/prog-exercises/Exercises/Leetcode/Basics/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/robertobolgheroni/.nuget/NuGet/NuGet.Config"
@@ -48,12 +48,22 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.18, 7.0.18]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.18, 7.0.18]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/7.0.113/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/8.0.104/RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,15 +1,16 @@
-Context: Order Processing Workflow
+# Context: 
+Order Processing Workflow
 
-Scenario:
+# Scenario:
 In an order processing workflow, an order goes through various stages: validation, inventory check, payment verification, and shipping confirmation. Each stage is handled by a different component.
 
-Objective:
+# Objective:
 Use the chain of responsibility pattern to manage the order processing stages, allowing each handler to process or pass the request along the chain.
 
-Exercise:
+# Exercise:
 Implement a chain of responsibility to process orders through various stages.
 
-Desired Outcome:
+# Desired Outcome:
 - The system should route each order through a sequence of handlers: validation, inventory check, payment verification, and shipping confirmation.
 - Each handler processes its specific aspect of the order:
   - Validation ensures the order details are correct.
