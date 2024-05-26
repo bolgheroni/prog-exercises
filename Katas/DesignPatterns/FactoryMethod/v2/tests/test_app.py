@@ -6,16 +6,16 @@ from tests.fake_input_collector import FakeInputCollector
 
 def make_sut(
     output_channel=None,
-    input_channel=None,
+    input_collector=None,
     transports_control=None
 ):
     _output_channel = output_channel if output_channel else StringIO()
-    _input_channel = input_channel if input_channel else FakeInputCollector().set_action_input("0")
+    _input_collector = input_collector if input_collector else FakeInputCollector().set_action_input("0")
     _transports_control = transports_control if transports_control else FakeTransportsControl().set_transports_list([])
 
     return App(
         output_channel=_output_channel,
-        input_channel=_input_channel,
+        input_collector=_input_collector,
         transports_control=_transports_control
     )
 
@@ -32,10 +32,10 @@ def test_displays_actions_list():
     assert "4 - Exit" in actions_list
 
 def test_collects_user_input():
-    input_channel = FakeInputCollector().set_action_input("1")
+    input_collector = FakeInputCollector().set_action_input("1")
     mock_output = StringIO()
     sut = make_sut(
-        input_channel=input_channel,
+        input_collector=input_collector,
         output_channel=mock_output
     )
     sut.loop()
@@ -45,7 +45,7 @@ def test_collects_user_input():
 
 def test_displays_transports_list():
     # arrange
-    input_channel = FakeInputCollector().set_action_input("1")
+    input_collector = FakeInputCollector().set_action_input("1")
     mock_output = StringIO()
     truck1 = TruckTransport(
         id=99,
@@ -53,7 +53,7 @@ def test_displays_transports_list():
     )
     fake_transports_control = FakeTransportsControl().set_transports_list([truck1])
     sut = make_sut(
-        input_channel=input_channel,
+        input_collector=input_collector,
         output_channel=mock_output,
         transports_control=fake_transports_control
     )
@@ -67,12 +67,12 @@ def test_displays_transports_list():
 
 def test_creates_transport():
     # arrange
-    input_channel = FakeInputCollector().set_action_input("2").set_create_type_input("TRUCK").set_id_input("99")
+    input_collector = FakeInputCollector().set_action_input("2").set_create_type_input("TRUCK").set_id_input("99")
     mock_output = StringIO()
     fake_transports_control = FakeTransportsControl().set_transports_list([])
 
     sut = make_sut(
-        input_channel=input_channel,
+        input_collector=input_collector,
         output_channel=mock_output,
         transports_control=fake_transports_control
     )
@@ -88,7 +88,7 @@ def test_creates_transport():
     
 def test_deploys_transport():
     # arrange
-    input_channel = FakeInputCollector().set_action_input("3").set_id_input("99")
+    input_collector = FakeInputCollector().set_action_input("3").set_id_input("99")
     mock_output = StringIO()
     transport = TruckTransport(
         id=99,
@@ -99,7 +99,7 @@ def test_deploys_transport():
     ])
 
     sut = make_sut(
-        input_channel=input_channel,
+        input_collector=input_collector,
         output_channel=mock_output,
         transports_control=fake_transports_control
     )
