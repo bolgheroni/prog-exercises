@@ -1,5 +1,5 @@
-from v2.src.transport import Transport
-from v2.src.eta import ETA
+from src.transport import Transport
+from src.eta import ETA
 import math
 
 class TruckTransport(Transport):

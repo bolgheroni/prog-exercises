@@ -1,6 +1,6 @@
 import math
-from v2.src.transport import Transport 
-from v2.src.eta import ETA
+from src.transport import Transport 
+from src.eta import ETA
 class ShipTransport(Transport):
     def __init__(self, id: int, distance_km: int, crew_amount: int):
         super().__init__(type="SHIP", id=id, distance_km=distance_km)

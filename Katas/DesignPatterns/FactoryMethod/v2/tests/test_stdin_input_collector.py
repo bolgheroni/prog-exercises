@@ -1,5 +1,5 @@
 from io import StringIO
-from v2.src.stdin_input_collector import StdinInputCollector
+from src.stdin_input_collector import StdinInputCollector
 
 def make_sut(
         mock_input

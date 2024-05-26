@@ -1,4 +1,4 @@
-from v2.src.truck_transport import TruckTransport
+from src.truck_transport import TruckTransport
 
 def make_sut(
     distance_km: int = 100,

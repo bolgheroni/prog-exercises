@@ -1,6 +1,6 @@
 from typing import List
-from v2.src.transport import Transport
-from v2.src.transport_factory import TransportFactory
+from src.transport import Transport
+from src.transport_factory import TransportFactory
 
 class TransportsControl:
     def __init__(self, transport_factory: TransportFactory):

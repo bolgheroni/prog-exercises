@@ -1,5 +1,5 @@
-from v2.src.transport_factory import TransportFactory
-from v2.tests.fake_input_collector import FakeInputCollector
+from src.transport_factory import TransportFactory
+from tests.fake_input_collector import FakeInputCollector
 
 def make_sut(
     input_collector

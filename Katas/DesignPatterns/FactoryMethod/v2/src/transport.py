@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from v2.src.eta import ETA
+from src.eta import ETA
 
 class Transport(ABC):
     def __init__(self, type: str, id: int, distance_km: int):

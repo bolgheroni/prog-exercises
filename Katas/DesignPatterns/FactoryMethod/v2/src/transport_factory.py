@@ -1,5 +1,5 @@
-from v2.src.truck_transport import TruckTransport
-from v2.src.ship_transport import ShipTransport
+from src.truck_transport import TruckTransport
+from src.ship_transport import ShipTransport
 
 class TransportFactory:
     def __init__(self, input_collector):
