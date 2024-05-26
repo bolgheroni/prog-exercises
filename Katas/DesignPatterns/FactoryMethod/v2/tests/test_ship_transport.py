@@ -20,5 +20,8 @@ def test_ship_transport_eta():
     
     assert eta.hours == 37
     assert eta.minutes == 2
+
+    description = str(sut)
+    assert "37h2m" in description
     
 

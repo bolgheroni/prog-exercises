@@ -18,6 +18,4 @@ class TruckTransport(Transport):
     def __str__(self):
         base_description = super().__str__()
         distance_km_text = f"Distance (km): {self._distance_km}." 
-        eta = self.eta()
-        eta_text = f"ETA: {eta.hours}h{eta.minutes}m."
-        return f"{base_description}. {distance_km_text} {eta_text}"
+        return f"{base_description}. {distance_km_text}"

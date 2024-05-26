@@ -1,4 +1,5 @@
-from abc import ABC
+from abc import ABC, abstractmethod
+from v2.src.eta import ETA
 
 class Transport(ABC):
     def __init__(self, type: str, id: int):
@@ -12,6 +13,10 @@ class Transport(ABC):
     def is_deployed(self):
         return self._is_deployed
         
-    
     def __str__(self):
-        return f"{self.type} - {self.id}."
+        eta_text = self.eta()
+        return f"{self.type} - {self.id}. ETA: {eta_text.hours}h{eta_text.minutes}m."
+    
+    @abstractmethod
+    def eta(self)->ETA:
+        pass
