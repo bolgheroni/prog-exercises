@@ -16,7 +16,6 @@ class TransportFactory:
     def _create_truck(self, id: int):
         distance = self.input_collector.collect_distance()
         return TruckTransport(
-            type="TRUCK",
             id=id,
             distance=distance
         )
@@ -24,7 +23,6 @@ class TransportFactory:
     def _create_ship(self, id: int):
         crew_amount = self.input_collector.collect_crew_amount()
         return ShipTransport(
-            type="SHIP",
             id=id,
             crew_amount=crew_amount
         )

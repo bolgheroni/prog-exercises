@@ -1,8 +1,8 @@
 from v2.src.transport import Transport
 
 class TruckTransport(Transport):
-    def __init__(self, type: str, id: int, distance: int):
-        super().__init__(type, id)
+    def __init__(self, id: int, distance: int):
+        super().__init__(type="TRUCK", id=id)
         self.distance = distance
 
     def __str__(self):
