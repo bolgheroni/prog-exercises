@@ -14,10 +14,10 @@ class TransportFactory:
         raise ValueError("Invalid transport type.")
     
     def _create_truck(self, id: int):
-        distance = self.input_collector.collect_distance()
+        distance_km = self.input_collector.collect_distance()
         return TruckTransport(
             id=id,
-            distance=distance
+            distance_km=distance_km
         )
     
     def _create_ship(self, id: int):
