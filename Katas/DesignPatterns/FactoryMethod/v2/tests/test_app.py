@@ -3,13 +3,14 @@ from src.app import App
 from src.truck_transport import TruckTransport
 from tests.fake_transports_control import FakeTransportsControl
 from tests.fake_input_collector import FakeInputCollector
+
 def make_sut(
     output_channel=None,
     input_channel=None,
     transports_control=None
 ):
     _output_channel = output_channel if output_channel else StringIO()
-    _input_channel = input_channel if input_channel else FakeInputCollector().set_action_input("2")
+    _input_channel = input_channel if input_channel else FakeInputCollector().set_action_input("0")
     _transports_control = transports_control if transports_control else FakeTransportsControl().set_transports_list([])
 
     return App(
@@ -50,11 +51,11 @@ def test_displays_transports_list():
         id=99,
         distance_km=65
     )
-    transports_control = FakeTransportsControl().set_transports_list([truck1])
+    fake_transports_control = FakeTransportsControl().set_transports_list([truck1])
     sut = make_sut(
         input_channel=input_channel,
         output_channel=mock_output,
-        transports_control=transports_control
+        transports_control=fake_transports_control
     )
     # act
     sut.loop()
@@ -64,6 +65,27 @@ def test_displays_transports_list():
     assert "TRUCK" in mock_output.getvalue()
     assert "99" in mock_output.getvalue()
 
+def test_creates_transport():
+    # arrange
+    input_channel = FakeInputCollector().set_action_input("2").set_create_type_input("TRUCK").set_id_input("99")
+    mock_output = StringIO()
+    fake_transports_control = FakeTransportsControl().set_transports_list([])
+
+    sut = make_sut(
+        input_channel=input_channel,
+        output_channel=mock_output,
+        transports_control=fake_transports_control
+    )
+
+    # act
+    sut.loop()
+
+    # assert
+    assert fake_transports_control.called_create_transport(
+        type="TRUCK",
+        id=99
+    )
+    
 
     
     

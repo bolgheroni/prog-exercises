@@ -18,3 +18,12 @@ class App():
             transports = self.transports_control.list_transports()
             for transport in transports:
                 print(transport, file=self.output_channel)
+            return 
+        
+        if action == "2":
+            type = self.input_channel.collect_create_type_input()
+            id = self.input_channel.collect_id_input()
+            self.transports_control.create_transport(
+                type=type,
+                id=id
+            )

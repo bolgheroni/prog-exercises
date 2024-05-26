@@ -13,6 +13,14 @@ class FakeInputCollector:
         self.action_input = action_input
         return self
     
+    def set_create_type_input(self, create_type_input):
+        self.create_type_input = create_type_input
+        return self
+    
+    def set_id_input(self, id_input):
+        self.id_input = id_input
+        return self
+
     def collect_distance(self):
         return self.distance
     
@@ -21,3 +29,9 @@ class FakeInputCollector:
 
     def collect_action_input(self):
         return self.action_input
+        
+    def collect_create_type_input(self):
+        return self.create_type_input
+    
+    def collect_id_input(self):
+        return self.id_input
