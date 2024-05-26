@@ -71,6 +71,12 @@ def test_deploys_transport():
     )
 
     assert transport.is_deployed() == False
+    description = str(transport)
+    assert "not deployed" in description.lower()
+    
     sut.deploy_transport(1)
     assert transport.is_deployed() == True
+
+    description = str(transport)
+    assert "deployed" in description.lower()
     

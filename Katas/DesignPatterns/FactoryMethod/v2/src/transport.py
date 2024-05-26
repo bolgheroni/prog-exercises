@@ -19,8 +19,9 @@ class Transport(ABC):
         eta = self.eta()
         eta_text= f"ETA: {eta.hours}h{eta.minutes}m."
         distance_km_text = f"Distance (km):{self._distance_km}."
-        
-        return f"{identity_text} {distance_km_text} {eta_text}"
+        deployment_text = "Deployed." if self._is_deployed else "Not deployed."
+
+        return f"{identity_text} {distance_km_text} {eta_text} {deployment_text}"
     
     @abstractmethod
     def eta(self)->ETA:
