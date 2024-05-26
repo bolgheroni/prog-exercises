@@ -124,5 +124,17 @@ def test_deploys_transport():
         id=99
     )
 
+def test_should_exit():
+    # arrange
+    input_collector = FakeInputCollector().set_action_input("4")
+    mock_output = StringIO()
+    sut = make_sut(
+        input_collector=input_collector,
+        output_channel=mock_output
+    )
 
-    
+    # act
+    sut.loop()
+
+    # assert
+    assert sut.should_exit() == True

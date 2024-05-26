@@ -1,6 +1,9 @@
+import sys
 from src.stdin_input_collector import StdinInputCollector
+from src.app_input_collector import AppInputCollector
 from src.transport_factory import TransportFactory
 from src.transports_control import TransportsControl
+from src.app import App
 
 def main():
     factory = TransportFactory(
@@ -9,12 +12,18 @@ def main():
     control = TransportsControl(
         transport_factory=factory
     )
-    control.create_transport(
-        type="TRUCK",
-        id=1
+    app = App(
+        output_channel=sys.stdout,
+        input_collector=AppInputCollector(input_channel=input),
+        transports_control=control
     )
-    for transport in control.list_transports():
-        print(transport)
+    
+    while True:
+        app.loop()
+
+        if app.should_exit():
+            return
+        
     
 
 if __name__ == "__main__":

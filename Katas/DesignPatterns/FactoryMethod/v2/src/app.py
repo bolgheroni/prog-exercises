@@ -5,6 +5,7 @@ class App():
         self._output_channel = output_channel
         self._input_collector = input_collector
         self._transports_control = transports_control
+        self._should_exit = False
 
     def loop(self):
         print(
@@ -21,7 +22,6 @@ class App():
 
             if len(transports) == 0:
                 print("No transports available", file=self._output_channel)
-            return 
         
         if action == "2":
             type = self._input_collector.collect_create_type_input()
@@ -34,3 +34,10 @@ class App():
         if action == "3":
             id = self._input_collector.collect_id_input()
             self._transports_control.deploy_transport(id=id)
+
+        if action == "4":
+            print("Exiting...", file=self._output_channel)
+            self._should_exit = True
+
+    def should_exit(self):
+        return self._should_exit
