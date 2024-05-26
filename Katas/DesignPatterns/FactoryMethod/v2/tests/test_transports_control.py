@@ -2,10 +2,13 @@ from v2.src.transports_control import TransportsControl
 from v2.src.transport_factory import TransportFactory
 from v2.tests.fake_input_collector import FakeInputCollector
 
-def make_sut():
+def make_sut(
+    input_collector=None
+):
+    _input_collector = input_collector if input_collector else FakeInputCollector()
     return TransportsControl(
         transport_factory=TransportFactory(
-            input_collector=FakeInputCollector()
+            input_collector=_input_collector
         )
     )
 
@@ -20,7 +23,8 @@ def test_creates_truck():
     assert "1" in description
 
 def test_creates_ship():
-    sut = make_sut()
+    input_collector = FakeInputCollector().set_crew_amount(54)
+    sut = make_sut(input_collector)
     transport = sut.create_transport(
         type="SHIP",
         id=1
@@ -34,11 +38,14 @@ def test_list_transports_when_empty():
     assert sut.list_transports() == []
 
 def test_add_transports_to_list():
-    sut = make_sut()
+    input_collector = FakeInputCollector()
+    sut = make_sut(input_collector)
+    input_collector.set_distance(100)
     sut.create_transport(
         type="TRUCK",
         id=1
     )
+    input_collector.set_crew_amount(200)
     sut.create_transport(
         type="SHIP",
         id=2

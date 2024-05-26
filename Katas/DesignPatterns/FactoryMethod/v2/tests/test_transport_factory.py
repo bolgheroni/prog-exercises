@@ -20,6 +20,16 @@ def test_collects_distance_for_truck():
     description = str(transport)
     assert "100" in description
     
-
+def test_collects_crew_amount_for_ship():
+    input_collector = FakeInputCollector().set_crew_amount(54)
+    sut = make_sut(
+        input_collector
+    )
+    transport = sut.create_transport(
+        id=1,
+        type="SHIP"
+    )
+    description = str(transport)
+    assert "54" in description
 
 
