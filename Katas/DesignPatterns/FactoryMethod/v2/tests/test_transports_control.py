@@ -1,9 +1,12 @@
 from v2.src.transports_control import TransportsControl
 from v2.src.transport_factory import TransportFactory
+from v2.tests.fake_input_collector import FakeInputCollector
 
 def make_sut():
     return TransportsControl(
-        transport_factory=TransportFactory()
+        transport_factory=TransportFactory(
+            input_collector=FakeInputCollector()
+        )
     )
 
 def test_creates_truck():
