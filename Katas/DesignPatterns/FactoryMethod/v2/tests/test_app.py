@@ -86,9 +86,31 @@ def test_creates_transport():
         id=99
     )
     
+def test_deploys_transport():
+    # arrange
+    input_channel = FakeInputCollector().set_action_input("3").set_id_input("99")
+    mock_output = StringIO()
+    transport = TruckTransport(
+        id=99,
+        distance_km=65
+    )
+    fake_transports_control = FakeTransportsControl().set_transports_list([
+        transport
+    ])
 
-    
-    
+    sut = make_sut(
+        input_channel=input_channel,
+        output_channel=mock_output,
+        transports_control=fake_transports_control
+    )
+
+    # act
+    sut.loop()
+
+    # assert
+    assert fake_transports_control.called_deploy_transport(
+        id=99
+    )
 
 
     

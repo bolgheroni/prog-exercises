@@ -27,3 +27,7 @@ class App():
                 type=type,
                 id=id
             )
+
+        if action == "3":
+            id = self.input_channel.collect_id_input()
+            self.transports_control.deploy_transport(id=id)

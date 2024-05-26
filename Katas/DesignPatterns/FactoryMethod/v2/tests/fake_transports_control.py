@@ -4,7 +4,8 @@ from src.transport import Transport
 class FakeTransportsControl:
     def __init__(self):
         self.transports_list: List[Transport] = []
-        self.calls = []
+        self.create_calls = []
+        self.deploy_calls = []
 
     def set_transports_list(self, transports_list: List[Transport]):
         self.transports_list = transports_list
@@ -14,14 +15,24 @@ class FakeTransportsControl:
         return self.transports_list
     
     def create_transport(self, type, id):
-        self.calls.append({
+        self.create_calls.append({
             "type": str(type),
             "id": str(id)
         })
 
+    def deploy_transport(self, id):
+        self.deploy_calls.append({
+            "id": str(id)
+        })
+
     def called_create_transport(self, type, id):
-        print(self.calls)
+        print(self.create_calls)
         return {
             "type": str(type),
             "id": str(id)
-        } in self.calls
+        } in self.create_calls
+    
+    def called_deploy_transport(self, id):
+        return {
+            "id": str(id)
+        } in self.deploy_calls
