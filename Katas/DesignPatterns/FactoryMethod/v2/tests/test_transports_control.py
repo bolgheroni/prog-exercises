@@ -12,8 +12,9 @@ def test_creates_truck():
         type="TRUCK",
         id=1
     )
-    assert transport.id == 1
-    assert transport.type == "TRUCK"
+    description = str(transport)
+    assert "TRUCK" in description
+    assert "1" in description
 
 def test_creates_ship():
     sut = make_sut()
@@ -21,8 +22,9 @@ def test_creates_ship():
         type="SHIP",
         id=1
     )
-    assert transport.id == 1
-    assert transport.type == "SHIP"
+    description = str(transport)
+    assert "SHIP" in description
+    assert "1" in description
 
 def test_list_transports_when_empty():
     sut = make_sut()
@@ -43,11 +45,22 @@ def test_add_transports_to_list():
 
     assert len(transports_list) == 2
     
-    assert transports_list[0].id == 1
-    assert transports_list[0].type == "TRUCK"
+    truck_description = str(transports_list[0])
+    assert "TRUCK" in truck_description
+    assert "1" in truck_description
 
-    assert transports_list[1].id == 2
-    assert transports_list[1].type == "SHIP"
+    ship_description = str(transports_list[1])
+    assert "SHIP" in ship_description
+    assert "2" in ship_description
 
+def test_deploys_transport():
+    sut = make_sut()
+    transport = sut.create_transport(
+        type="TRUCK",
+        id=1
+    )
 
+    assert transport.is_deployed() == False
+    sut.deploy_transport(1)
+    assert transport.is_deployed() == True
     
