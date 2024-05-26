@@ -5,11 +5,25 @@ class TransportFactory:
         self.input_collector = input_collector
 
     def create_transport(self, id: int, type: str):
-        distance = self.input_collector.collect_distance() if type == "TRUCK" else None
-        crew_amount = self.input_collector.collect_crew_amount() if type == "SHIP" else None
+        if type == "TRUCK":
+            return self._create_truck(id)
+        if type == "SHIP":
+            return self._create_ship(id)
+        
+        raise ValueError("Invalid transport type.")
+    
+    def _create_truck(self, id: int):
+        distance = self.input_collector.collect_distance()
         return Transport(
-            type=type,
+            type="TRUCK",
             id=id,
-            distance=distance,
+            distance=distance
+        )
+    
+    def _create_ship(self, id: int):
+        crew_amount = self.input_collector.collect_crew_amount()
+        return Transport(
+            type="SHIP",
+            id=id,
             crew_amount=crew_amount
         )
