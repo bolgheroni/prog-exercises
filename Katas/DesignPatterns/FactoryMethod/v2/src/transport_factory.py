@@ -22,7 +22,9 @@ class TransportFactory:
     
     def _create_ship(self, id: int):
         crew_amount = self.input_collector.collect_crew_amount()
+        distance_km = self.input_collector.collect_distance()
         return ShipTransport(
             id=id,
-            crew_amount=crew_amount
+            crew_amount=crew_amount,
+            distance_km=distance_km
         )
