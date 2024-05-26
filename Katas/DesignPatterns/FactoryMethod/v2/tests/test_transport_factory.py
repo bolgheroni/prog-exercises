@@ -8,8 +8,8 @@ def make_sut(
         input_collector=input_collector
     )
 
-def test_collects_distance_for_truck():
-    input_collector = FakeInputCollector().set_distance(100)
+def test_collects_only_distance_for_truck():
+    input_collector = FakeInputCollector().set_distance(100).set_crew_amount(54)
     sut = make_sut(
         input_collector
     )
@@ -19,9 +19,10 @@ def test_collects_distance_for_truck():
     )
     description = str(transport)
     assert "100" in description
+    assert "54" not in description
     
-def test_collects_crew_amount_for_ship():
-    input_collector = FakeInputCollector().set_crew_amount(54)
+def test_collects_only_crew_amount_for_ship():
+    input_collector = FakeInputCollector().set_crew_amount(54).set_distance(100)
     sut = make_sut(
         input_collector
     )
@@ -31,5 +32,6 @@ def test_collects_crew_amount_for_ship():
     )
     description = str(transport)
     assert "54" in description
+    assert "100" not in description
 
 
