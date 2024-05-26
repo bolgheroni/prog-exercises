@@ -31,6 +31,18 @@ def test_displays_actions_list():
     assert "3 - Deploy transport" in actions_list
     assert "4 - Exit" in actions_list
 
+def test_displays_empty_transports_list():
+    input_collector = FakeInputCollector().set_action_input("1")
+    mock_output = StringIO()
+    sut = make_sut(
+        input_collector=input_collector,
+        output_channel=mock_output
+    )
+    sut.loop()
+
+    assert "No transports available" in mock_output.getvalue()
+
+
 def test_collects_user_input():
     input_collector = FakeInputCollector().set_action_input("1")
     mock_output = StringIO()

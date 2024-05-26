@@ -18,6 +18,9 @@ class App():
             transports = self._transports_control.list_transports()
             for transport in transports:
                 print(transport, file=self._output_channel)
+
+            if len(transports) == 0:
+                print("No transports available", file=self._output_channel)
             return 
         
         if action == "2":
