@@ -30,4 +30,11 @@ def test_calls_second_handler():
     assert second_handler.handle_called_with(order) == True
     
 
+def test_returns_none_if_handlers_are_empty():
+    sut = HandlersChain()
 
+    order = Order()
+
+    result = sut.handle(order)
+
+    assert result == None

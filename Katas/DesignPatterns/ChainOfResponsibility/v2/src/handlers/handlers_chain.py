@@ -12,4 +12,6 @@ class HandlersChain(Handler):
         self.handlers.append(handler)
 
     def handle(self, order) -> HandleResult:
+        if len(self.handlers) == 0:
+            return None
         self.handlers[0].handle(order)
