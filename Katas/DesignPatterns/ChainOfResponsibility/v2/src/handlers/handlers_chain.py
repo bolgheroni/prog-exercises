@@ -15,3 +15,8 @@ class HandlersChain(Handler):
         if len(self.handlers) == 0:
             return None
         self.handlers[0].handle(order)
+
+    def remove_handler(self, index):
+        to_remove_handler = self.handlers[index]
+        self.handlers.remove(to_remove_handler)
+        
