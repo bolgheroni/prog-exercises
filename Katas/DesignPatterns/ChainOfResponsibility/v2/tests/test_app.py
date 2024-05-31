@@ -21,3 +21,13 @@ def test_pass_order_to_handlers_chain():
 
     assert fake_chain.handle_called_with(order) == True
     
+def test_returns_valid_order_when_chain_returns_valid_order():
+    fake_chain = FakeHandlersChain().with_valid_order()
+    app = make_sut(
+        handlers_chain=fake_chain
+    )
+    order = Order()
+
+    result = app.run(order)
+
+    assert result.is_valid == True
