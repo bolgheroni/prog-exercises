@@ -148,3 +148,19 @@ def test_returns_valid_order_when_hasnt_enough_cash_and_next_yields_valid():
 
     # Assert
     assert result.is_valid == True
+
+def test_returns_none_when_cant_handle():
+    # Arrange
+    order = Order(
+        payment_method="credit_card", 
+        user_id=1, 
+        items=[]
+    )
+
+    sut = make_sut()
+
+    # Act
+    result = sut.handle(order)
+
+    # Assert
+    assert result == None
