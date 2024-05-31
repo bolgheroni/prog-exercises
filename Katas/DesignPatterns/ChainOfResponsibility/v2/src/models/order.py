@@ -3,7 +3,7 @@ from typing import List
 
 
 class Order:
-    def __init__(self, items: List[OrderItem] | None = None):
+    def __init__(self, items: List[OrderItem] | None = None, payment_method: str = None):
         _items = items if items else list()
         self.items = _items
 
