@@ -18,5 +18,12 @@ class HandlersChain(Handler):
 
     def remove_handler(self, index):
         to_remove_handler = self.handlers[index]
-        self.handlers.remove(to_remove_handler)
+        to_remove_next = None
         
+        if index < len(self.handlers) - 1:
+            to_remove_next = self.handlers[index + 1]
+        if index > 0:
+            self.handlers[index - 1].set_next(to_remove_next)
+
+        self.handlers.remove(to_remove_handler)
+
