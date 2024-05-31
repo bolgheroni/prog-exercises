@@ -49,7 +49,7 @@ def test_removes_first_handler_by_index():
 
     order = Order()
 
-    sut.remove_handler(0)
+    sut.remove_handler_by_index(0)
 
     sut.handle(order)
 
@@ -66,9 +66,27 @@ def test_removes_last_handler_by_index():
 
     order = Order()
 
-    sut.remove_handler(1)
+    sut.remove_handler_by_index(1)
 
     sut.handle(order)
 
     assert first_handler.handle_called_with(order) == True
     assert second_handler.handle_called_with(order) == False
+
+def test_removes_handler_by_reference():
+    first_handler = FakeHandler().with_valid_order()
+    second_handler = FakeHandler().with_valid_order()
+
+    sut = HandlersChain()
+    sut.add_handler(first_handler)
+    sut.add_handler(second_handler)
+
+    order = Order()
+
+    sut.remove_handler(first_handler)
+
+    sut.handle(order)
+
+    assert first_handler.handle_called_with(order) == False
+    assert second_handler.handle_called_with(order) == True
+    

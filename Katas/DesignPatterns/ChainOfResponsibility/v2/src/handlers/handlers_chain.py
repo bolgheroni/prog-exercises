@@ -16,7 +16,7 @@ class HandlersChain(Handler):
             return None
         self.handlers[0].handle(order)
 
-    def remove_handler(self, index):
+    def remove_handler_by_index(self, index: int):
         to_remove_handler = self.handlers[index]
         to_remove_next = None
         
@@ -27,3 +27,6 @@ class HandlersChain(Handler):
 
         self.handlers.remove(to_remove_handler)
 
+    def remove_handler(self, handler: Handler):
+        index = self.handlers.index(handler)
+        self.remove_handler_by_index(index)
