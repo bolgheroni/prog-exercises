@@ -11,3 +11,6 @@ class Order:
 
     def is_empty(self):
         return not self.items
+
+    def get_total(self):
+        return sum([item.price * item.quantity for item in self.items])
