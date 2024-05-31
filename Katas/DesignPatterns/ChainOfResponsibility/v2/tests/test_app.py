@@ -1,9 +1,10 @@
 from src.app import App
 from tests.fake_handlers_chain import FakeHandlersChain
 from src.models.order import Order
+from src.handlers.handler import Handler
 
 def make_sut(
-    handlers_chain
+    handlers_chain: Handler
 ):
     app = App(
         handlers_chain=handlers_chain
