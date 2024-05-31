@@ -10,11 +10,12 @@ class HandlersChain(Handler):
         if last_handler:
             last_handler.set_next(handler)
         self.handlers.append(handler)
+        return self
 
     def handle(self, order) -> HandleResult:
         if len(self.handlers) == 0:
             return None
-        self.handlers[0].handle(order)
+        return self.handlers[0].handle(order)
 
     def remove_handler_by_index(self, index: int):
         to_remove_handler = self.handlers[index]
