@@ -11,16 +11,17 @@ class CashPaymentHandler(Handler):
 
     def handle(self, order):
         if order.payment_method != "cash":
-            if self.next_handler:
-                return self.next_handler.handle(order)
+            return self._next_handler_result(order)
             
         enough_cash_result = self._check_user_has_enough_cash(order.user_id, order)
 
         if enough_cash_result:
             return enough_cash_result
 
-        if self.next_handler:
-            return self.next_handler.handle(order)
+        next_handler_result = self._next_handler_result(order)
+
+        if next_handler_result:
+            return next_handler_result
 
         return HandleResult(is_valid=True)
 
@@ -34,4 +35,9 @@ class CashPaymentHandler(Handler):
         if user_cash < order_total:
             return HandleResult(is_valid=False, cause="Funds aren't enough")
 
+        return None
+
+    def _next_handler_result(self, order):
+        if self.next_handler:
+            return self.next_handler.handle(order)
         return None
