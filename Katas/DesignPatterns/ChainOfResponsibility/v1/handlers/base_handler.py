@@ -14,4 +14,10 @@ class BaseHandler(OrderHandler):
         if self.next:
             return self.next.handle(order)
         else:
-            return HandleResult(success=True)
+            return self.success_response()
+
+    def success_response(self) -> HandleResult:
+        return HandleResult(success=True)
+    
+    def fail_response(self, message: str) -> HandleResult:
+        return HandleResult(success=False, message=message)

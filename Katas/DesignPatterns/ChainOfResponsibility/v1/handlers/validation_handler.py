@@ -16,11 +16,11 @@ class ValidationHandler(BaseHandler):
 
     def validate_products_length(self, order: Order) -> HandleResult | None:
         if not order.products:
-            return HandleResult(success=False, message="No products in order")
+            return self.fail_response(message="No products in order")
         return None
 
     def validate_products_amount(self, order: Order) -> HandleResult | None:
         for product in order.products:
             if product["amount"] <= 0:
-                return HandleResult(success=False, message="Product amount is invalid")
+                return self.fail_response(message="Product amount is invalid")
         return None
