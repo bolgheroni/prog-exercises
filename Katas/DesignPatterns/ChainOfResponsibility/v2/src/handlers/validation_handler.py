@@ -1,10 +1,10 @@
-from src.handlers.handler import Handler
+from src.handlers.base_handler import BaseHandler
 from src.models.handle_result import HandleResult
 from src.models.order import Order
 
 
-class ValidationHandler(Handler):
-    def handle(self, order: Order) -> HandleResult:
+class ValidationHandler(BaseHandler):
+    def _handle_specific(self, order: Order) -> HandleResult:
         empty_order_result = self._check_order_is_empty(order)
         if empty_order_result:
             return empty_order_result
@@ -35,3 +35,6 @@ class ValidationHandler(Handler):
             if item.price and item.price <= 0:
                 return HandleResult(is_valid=False, cause=f"Invalid price ({item.price}) for {item.product}")
         return None
+    
+    def _can_handle(self, order: Order) -> bool:
+        return True
