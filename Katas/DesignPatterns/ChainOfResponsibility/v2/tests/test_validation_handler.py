@@ -63,3 +63,20 @@ def test_invalidates_order_with_invalid_item_quantities():
     assert "-1" in result2.cause, "Expected the quantity value to be in the cause message"
     assert "Product 1" in result2.cause, "Expected the product name to be in the cause message"
     
+def test_invalidates_order_with_negative_item_prices():
+    sut = make_sut()
+    order = Order(
+        items=[
+            OrderItem(
+                product="Product 1",
+                quantity=1,
+                price=-1,
+            )
+        ]
+    )
+
+    result = sut.handle(order)
+
+    assert result.is_valid == False, "Expected order to be invalid"
+    assert "price" in result.cause.lower(), "Expected the price label to be in the cause message"
+    assert "-1" in result.cause, "Expected the price value to be in the cause message"
