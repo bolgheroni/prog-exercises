@@ -1,9 +1,10 @@
 from src.models.handle_result import HandleResult
-
-class FakeHandlersChain:
+from src.handlers.handler import Handler
+class FakeHandlersChain(Handler):
     def __init__(self):
         self.handle_calls = []
         self.handle_result = HandleResult(is_valid=False)
+        super().__init__()
 
     def handle_called_with(self, order):
         return order in self.handle_calls
