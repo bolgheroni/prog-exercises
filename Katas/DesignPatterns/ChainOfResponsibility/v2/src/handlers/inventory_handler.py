@@ -6,5 +6,8 @@ class InventoryHandler():
         self.inventory = inventory
 
     def handle(self, order: Order) -> HandleResult:
-
-        return HandleResult(is_valid=False, cause=f"Unavailable quantity ({order.items[0].quantity}) product {order.items[0].product}")
+        for item in order.items:
+            if not self.inventory.is_available(item):
+                return HandleResult(is_valid=False, cause=f"Unavailable quantity ({item.quantity}) product {item.product}")
+        
+        return HandleResult(is_valid=True)
