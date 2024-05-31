@@ -47,3 +47,21 @@ def test_returns_invalid_order_when_chain_returns_invalid_order():
 
     assert result.is_valid == False
     assert result.cause == "Invalid order cause"
+
+def test_throws_when_chain_returns_None():
+    fake_chain = FakeHandlersChain()\
+        .with_None_result()
+    app = make_sut(
+        handlers_chain=fake_chain
+    )
+    order = Order()
+
+    try:
+        app.run(order)
+        assert False
+    except Exception as e:
+        assert str(e) == "No handler could handle the order"
+
+    
+
+    

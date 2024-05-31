@@ -20,3 +20,7 @@ class FakeHandlersChain(Handler):
     def with_invalid_order(self, cause):
         self.handle_result = HandleResult(is_valid=False, cause=cause)
         return self
+    
+    def with_None_result(self):
+        self.handle_result = None
+        return self

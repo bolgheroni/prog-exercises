@@ -5,7 +5,11 @@ class App:
         self.handlers_chain = handlers_chain
 
     def run(self, order) -> HandleResult:
-        return self.handlers_chain.handle(order)
+        result = self.handlers_chain.handle(order)
+        if result is None:
+            raise Exception("No handler could handle the order")
+        
+        return result
 
         
         
