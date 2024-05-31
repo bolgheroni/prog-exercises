@@ -8,14 +8,23 @@ def get_order() -> Order:
     return Order()
 
 def main():
-    validation_chain = ValidationHandler().set_next(InventoryHandler(
-        inventory=[
-            {"name": "product1", "amount": 10},
-            {"name": "product2", "amount": 20}
-        ]
-    )).set_next(CashPaymentHandler()).set_next(DeliveryCountryHandler(
-        supported_countries=["US", "BR"]
-    ))
+    validation_chain = ValidationHandler()\
+        .set_next(
+            InventoryHandler(
+                inventory=[
+                    {"name": "product1", "amount": 10},
+                    {"name": "product2", "amount": 20}
+                ]
+            )
+        )\
+        .set_next(
+            CashPaymentHandler()
+        )\
+        .set_next(
+            DeliveryCountryHandler(
+                supported_countries=["US", "BR"]
+            )
+        )
 
     order = Order(
         products=[
