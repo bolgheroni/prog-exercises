@@ -10,7 +10,7 @@ class CashPaymentHandler(Handler):
         self.next_handler = None
 
     def handle(self, order):
-        if order.payment_method != "cash":
+        if not self._can_handle(order):
             return self._next_handler_result(order)
             
         enough_cash_result = self._check_user_has_enough_cash(order.user_id, order)
@@ -41,3 +41,6 @@ class CashPaymentHandler(Handler):
         if self.next_handler:
             return self.next_handler.handle(order)
         return None
+    
+    def _can_handle(self, order):
+        return order.payment_method == "cash"
