@@ -1,7 +1,7 @@
 from src.handlers.cash_payment_handler import CashPaymentHandler
 from src.models.order import Order
 from src.models.order_item import OrderItem
-from tests.fake_handlers_chain import FakeHandlersChain
+from tests.fake_handler import FakeHandler
 from src.handlers.handler import Handler
 from src.services.user_funds import UserFundsService
 
@@ -20,7 +20,7 @@ def make_sut(
 
 
 def test_pass_handling_when_payment_method_is_not_cash():
-    fake_chain = FakeHandlersChain()
+    fake_chain = FakeHandler()
     sut = make_sut(
         next_handler=fake_chain
     )
@@ -103,7 +103,7 @@ def test_returns_invalid_order_when_cash_is_enough_and_next_handler_yields_inval
         ]
     )
 
-    fake_chain = FakeHandlersChain().with_invalid_order(
+    fake_chain = FakeHandler().with_invalid_order(
         cause="Invalid order cause"
     )
 
@@ -136,7 +136,7 @@ def test_returns_valid_order_when_hasnt_enough_cash_and_next_yields_valid():
         ]
     )
 
-    fake_chain = FakeHandlersChain().with_valid_order()
+    fake_chain = FakeHandler().with_valid_order()
 
     sut = make_sut(
         user_funds_service=user_funds_service,

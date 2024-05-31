@@ -1,6 +1,6 @@
 from src.models.handle_result import HandleResult
 from src.handlers.handler import Handler
-class FakeHandlersChain(Handler):
+class FakeHandler(Handler):
     def __init__(self):
         self.handle_calls = []
         self.handle_result = HandleResult(is_valid=False)

@@ -1,5 +1,5 @@
 from src.app import App
-from tests.fake_handlers_chain import FakeHandlersChain
+from tests.fake_handler import FakeHandler
 from src.models.order import Order
 from src.handlers.handler import Handler
 
@@ -12,7 +12,7 @@ def make_sut(
     return app
 
 def test_pass_order_to_handlers_chain():
-    fake_chain = FakeHandlersChain()
+    fake_chain = FakeHandler()
     app = make_sut(
         handlers_chain=fake_chain
     )
@@ -23,7 +23,7 @@ def test_pass_order_to_handlers_chain():
     assert fake_chain.handle_called_with(order) == True
     
 def test_returns_valid_order_when_chain_returns_valid_order():
-    fake_chain = FakeHandlersChain().with_valid_order()
+    fake_chain = FakeHandler().with_valid_order()
     app = make_sut(
         handlers_chain=fake_chain
     )
@@ -34,7 +34,7 @@ def test_returns_valid_order_when_chain_returns_valid_order():
     assert result.is_valid == True
 
 def test_returns_invalid_order_when_chain_returns_invalid_order():
-    fake_chain = FakeHandlersChain()\
+    fake_chain = FakeHandler()\
         .with_invalid_order(
             cause="Invalid order cause"
         )
@@ -49,7 +49,7 @@ def test_returns_invalid_order_when_chain_returns_invalid_order():
     assert result.cause == "Invalid order cause"
 
 def test_throws_when_chain_returns_None():
-    fake_chain = FakeHandlersChain()\
+    fake_chain = FakeHandler()\
         .with_None_result()
     app = make_sut(
         handlers_chain=fake_chain
