@@ -14,7 +14,20 @@ def test_calls_first_handler():
 
     assert first_handler.handle_called_with(order) == True
     
+def test_calls_second_handler():
+    first_handler = FakeHandler().with_valid_order()
+    second_handler = FakeHandler().with_valid_order()
 
+    sut = HandlersChain()
+    sut.add_handler(first_handler)
+    sut.add_handler(second_handler)
+
+    order = Order()
+
+    sut.handle(order)
+
+    assert first_handler.handle_called_with(order) == True
+    assert second_handler.handle_called_with(order) == True
     
 
 

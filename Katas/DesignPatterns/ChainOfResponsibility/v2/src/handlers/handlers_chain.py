@@ -6,7 +6,10 @@ class HandlersChain(Handler):
         self.handlers = []
         
     def add_handler(self, handler: Handler):
+        last_handler = self.handlers[-1] if len(self.handlers) > 0 else None
+        if last_handler:
+            last_handler.set_next(handler)
         self.handlers.append(handler)
-        
+
     def handle(self, order) -> HandleResult:
         self.handlers[0].handle(order)
