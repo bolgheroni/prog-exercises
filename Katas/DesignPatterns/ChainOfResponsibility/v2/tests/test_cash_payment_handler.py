@@ -118,3 +118,33 @@ def test_returns_invalid_order_when_cash_is_enough_and_next_handler_yields_inval
     # Assert
     assert result.is_valid == False
     assert result.cause == "Invalid order cause"
+
+def test_returns_valid_order_when_hasnt_enough_cash_and_next_yields_valid():
+    # Arrange
+    user_funds_service = UserFundsService()
+    user_funds_service.set_user_cash(user_id=1, funds=0)
+
+    order = Order(
+        payment_method="credit_card", 
+        user_id=1, 
+        items=[
+            OrderItem(
+                price=20,
+                product="product X",
+                quantity=2
+            )
+        ]
+    )
+
+    fake_chain = FakeHandlersChain().with_valid_order()
+
+    sut = make_sut(
+        user_funds_service=user_funds_service,
+        next_handler=fake_chain
+    )
+
+    # Act
+    result = sut.handle(order)
+
+    # Assert
+    assert result.is_valid == True
