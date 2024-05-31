@@ -31,3 +31,18 @@ def test_returns_valid_order_when_chain_returns_valid_order():
     result = app.run(order)
 
     assert result.is_valid == True
+
+def test_returns_invalid_order_when_chain_returns_invalid_order():
+    fake_chain = FakeHandlersChain()\
+        .with_invalid_order(
+            cause="Invalid order cause"
+        )
+    app = make_sut(
+        handlers_chain=fake_chain
+    )
+    order = Order()
+
+    result = app.run(order)
+
+    assert result.is_valid == False
+    assert result.cause == "Invalid order cause"
