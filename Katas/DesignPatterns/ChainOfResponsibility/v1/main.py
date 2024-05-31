@@ -1,6 +1,7 @@
 from handlers.validation_handler import ValidationHandler
 from handlers.inventory_handler import InventoryHandler
 from handlers.cash_payment_handler import CashPaymentHandler
+from handlers.delivery_country_handler import DeliveryCountryHandler
 from models.order import Order
 
 def get_order() -> Order:
@@ -12,7 +13,9 @@ def main():
             {"name": "product1", "amount": 10},
             {"name": "product2", "amount": 20}
         ]
-    )).set_next(CashPaymentHandler())
+    )).set_next(CashPaymentHandler()).set_next(DeliveryCountryHandler(
+        supported_countries=["US", "BR"]
+    ))
 
     order = Order(
         products=[
@@ -21,6 +24,7 @@ def main():
         ],
         payment_method="cash",
         payment_details={"available_cash": 30},
+        delivery_details={"country": "US"}
     )
 
     result = validation_chain.handle(order)
