@@ -1,5 +1,6 @@
 from src.handlers.handler import Handler
 from src.models.handle_result import HandleResult
+from src.models.order import Order
 
 
 class CashPaymentHandler(Handler):
@@ -9,16 +10,24 @@ class CashPaymentHandler(Handler):
         self.next_handler = None
 
     def handle(self, order):
-        order_total = order.get_total()
-        user_cash = self.user_funds_service.get_user_cash(order.user_id)
+        enough_cash_result = self._check_user_has_enough_cash(order.user_id, order)
 
-        if user_cash < order_total:
-            return HandleResult(is_valid=False, cause="Funds aren't enough")
-        
+        if enough_cash_result:
+            return enough_cash_result
+
         if self.next_handler:
             return self.next_handler.handle(order)
-        
+
         return HandleResult(is_valid=True)
 
     def set_next(self, next_handler: Handler):
         self.next_handler = next_handler
+
+    def _check_user_has_enough_cash(self, user_id: str, order: Order) -> HandleResult | None:
+        user_cash = self.user_funds_service.get_user_cash(user_id)
+        order_total = order.get_total()
+
+        if user_cash < order_total:
+            return HandleResult(is_valid=False, cause="Funds aren't enough")
+
+        return None
