@@ -164,3 +164,30 @@ def test_returns_none_when_cant_handle():
 
     # Assert
     assert result == None
+
+def test_returns_valid_when_valid_and_next_returns_none():
+    # Arrange
+    user_funds_service = UserFundsService()
+    user_funds_service.set_user_cash(user_id=1, funds=40)
+
+    order = Order(
+        payment_method="cash", 
+        user_id=1, 
+        items=[
+            OrderItem(
+                price=20,
+                product="product X",
+                quantity=2
+            )
+        ]
+    )
+
+    sut = make_sut(
+        user_funds_service=user_funds_service
+    )
+
+    # Act
+    result = sut.handle(order)
+
+    # Assert
+    assert result.is_valid == True
