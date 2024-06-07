@@ -1,12 +1,20 @@
 from src.marathon import Marathon
+from src.participant import Participant
+from src.participant_state import ParticipantState
 
 
 def make_sut(
     participants=None
 ):
     _participants = participants if participants != None else list([
-        ('John Doe', 30),
-        ('Jane Doe', 25)
+        Participant(
+            name='John Doe',
+            age=30
+        ),
+        Participant(
+            name='Jane Doe',
+            age=25
+        )
     ])
     return Marathon(
         participants=_participants
@@ -16,8 +24,16 @@ def make_sut(
 class TestMarathonCurrentState():
     def test_displays_participants_data(self):
         participants = [
-            ('John Doe', 30),
-            ('Jane Doe', 25)
+            Participant(
+                name='John Doe',
+                age=30,
+                state=ParticipantState(10)
+            ),
+            Participant(
+                name='Jane Doe',
+                age=25,
+                state=ParticipantState(1)
+            )
         ]
         sut = make_sut(
             participants=participants
@@ -29,6 +45,8 @@ class TestMarathonCurrentState():
         assert 'jane doe' in participants_state
         assert '30' in participants_state
         assert '25' in participants_state
+        assert '10' in participants_state
+        assert '1' in participants_state
 
     def test_displays_empty_participants_data(self):
         sut = make_sut(
@@ -49,3 +67,32 @@ class TestMarathonCurrentState():
         current_state = sut.current_state()
 
         assert 'in progress' in current_state.status.lower()
+
+    def test_displays_ticks_since_start(self):
+        sut = make_sut()
+
+        sut.start()
+
+        current_state = sut.current_state()
+
+        assert current_state.ticks == 0
+
+        sut.tick()
+
+        current_state = sut.current_state()
+
+        assert current_state.ticks == 1
+
+
+class TestMarathonStart():
+    def test_resets_participants_state(self):
+        participants = [
+            Participant(
+                name='John Doe',
+                age=30
+            ),
+        ]
+        sut = make_sut()
+        sut.start()
+
+        assert participants[0].state.position == 0
