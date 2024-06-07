@@ -1,6 +1,5 @@
-from src.sprint_game import SprintGame
+from src.sprint_game import make_sprint_game
 from src.participant import Participant
-from src.participant_state import ParticipantState
 from src.constant_runner import ConstantRunner
 
 def make_sut(
@@ -18,7 +17,7 @@ def make_sut(
         )
     ])
     _distance = distance if distance != None else 200
-    return SprintGame(
+    return make_sprint_game(
         participants=_participants,
         distance=_distance
     )
