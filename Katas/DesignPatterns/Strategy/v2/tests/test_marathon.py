@@ -1,9 +1,10 @@
 from src.marathon import Marathon
 
+
 def make_sut(
     participants=None
 ):
-    _participants = participants or list([
+    _participants = participants if participants != None else list([
         ('John Doe', 30),
         ('Jane Doe', 25)
     ])
@@ -11,8 +12,9 @@ def make_sut(
         participants=_participants
     )
 
-def test_marathon_current_state():
-    def test_displays_participants_data():
+
+class TestMarathonCurrentState():
+    def test_displays_participants_data(self):
         participants = [
             ('John Doe', 30),
             ('Jane Doe', 25)
@@ -20,11 +22,29 @@ def test_marathon_current_state():
         sut = make_sut(
             participants=participants
         )
-        current_state = sut.current_state()
+        current_state = sut.current_state().lower()
 
-        assert 'John Doe' in current_state
-        assert 'Jane Doe' in current_state
+        assert 'john doe' in current_state
+        assert 'jane doe' in current_state
         assert '30' in current_state
         assert '25' in current_state
 
-    test_displays_participants_data()
+    def test_displays_empty_participants_data(self):
+        sut = make_sut(
+            participants=[]
+        )
+        current_state = sut.current_state()
+
+        assert 'no participants' in current_state.lower()
+
+    def test_displays_race_status(self):
+        sut = make_sut()
+        current_state = sut.current_state()
+
+        assert 'not started' in current_state.lower()
+
+        sut.start()
+
+        current_state = sut.current_state()
+
+        assert 'in progress' in current_state.lower()
