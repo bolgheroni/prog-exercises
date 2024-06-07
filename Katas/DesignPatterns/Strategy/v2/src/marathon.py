@@ -10,6 +10,7 @@ class Marathon:
         self.ticks = 0
         self.distance = 40000
         self.finished = False
+        self.winners = None
 
     def add_participant(self, name, age):
         self.participants.append((name, age))
@@ -18,7 +19,8 @@ class Marathon:
         return EventState(
             participants=self._participants_description(),
             status=self._status_description(),
-            ticks=self.ticks
+            ticks=self.ticks,
+            winners=self.winners
         )
     
     def start(self):
@@ -40,6 +42,7 @@ class Marathon:
     def finish(self):
         self.started = False
         self.finished = True
+        self.winners = [participant for participant in self.participants if participant.state.position >= self.distance]
 
     def _status_description(self):
         if self.finished:

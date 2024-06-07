@@ -83,6 +83,28 @@ class TestMarathonCurrentState():
 
         assert current_state.ticks == 1
 
+    def test_displays_winner_when_finished(self):
+        participants = [
+            Participant(
+                name='John Doe',
+                age=30,
+                state=ParticipantState(0)
+            )
+        ]
+        sut = make_sut(
+            participants=participants
+        )
+        sut.start()
+
+        participants[0].state.position = 40000
+
+        sut.tick()
+
+        current_state = sut.current_state()
+
+        assert 'finished' in current_state.status.lower()
+        assert participants[0] in current_state.winners
+
 
 class TestMarathonStart():
     def test_resets_participants_state(self):
