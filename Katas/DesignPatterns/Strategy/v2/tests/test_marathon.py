@@ -191,3 +191,14 @@ class TestMarathonTick():
             message = str(e).lower()
 
             assert 'finished' in message
+
+    def test_when_is_not_started_throws_error(self):
+        sut = make_sut()
+
+        try:
+            sut.tick()
+            assert False
+        except Exception as e:
+            message = str(e).lower()
+
+            assert 'started' in message

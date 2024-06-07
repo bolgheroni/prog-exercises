@@ -31,11 +31,14 @@ class Marathon:
         if self.finished:
             raise Exception('Cannot tick a finished event')
 
+        if not self.started:
+            raise Exception('Cannot tick a non-started event')
+
         for participant in self.participants:
             participant.act()
 
         self.ticks += 1
-        
+
         if self.check_finish():
             self._finish()
 
