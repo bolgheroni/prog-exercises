@@ -176,3 +176,18 @@ class TestMarathonTick():
         current_state = sut.current_state()
 
         assert 'finished' in current_state.status.lower()
+
+    def test_when_is_finished_throws_error(self):
+        sut = make_sut()
+        sut.start()
+
+        for _ in range(40000):
+            sut.tick()
+
+        try:
+            sut.tick()
+            assert False
+        except Exception as e:
+            message = str(e).lower()
+
+            assert 'finished' in message

@@ -28,14 +28,18 @@ class Marathon:
         self.started = True
 
     def tick(self):
-        self.ticks += 1
+        if self.finished:
+            raise Exception('Cannot tick a finished event')
+
         for participant in self.participants:
             participant.act()
 
-        if self._check_finish():
+        self.ticks += 1
+        
+        if self.check_finish():
             self._finish()
 
-    def _check_finish(self):
+    def check_finish(self):
         return self._get_winners() != None
     
     def _finish(self):
