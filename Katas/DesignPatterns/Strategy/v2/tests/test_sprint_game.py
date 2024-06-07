@@ -1,6 +1,6 @@
 from src.sprint_game import make_sprint_game
 from src.participant import Participant
-from src.constant_runner import ConstantRunner
+from src.participant_strategies.constant_runner import ConstantRunner
 
 def make_sut(
     participants=None,

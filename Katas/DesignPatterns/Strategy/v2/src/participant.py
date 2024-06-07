@@ -1,5 +1,5 @@
 from src.states.participant_state import ParticipantState
-from src.constant_runner import ConstantRunner
+from src.participant_strategies.constant_runner import ConstantRunner
 
 class Participant:
     def __init__(self, name, age, state=None, action_strategy=None):
