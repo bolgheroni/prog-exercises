@@ -1,7 +1,7 @@
 from src.marathon import Marathon
 from src.participant import Participant
 from src.participant_state import ParticipantState
-
+from src.constant_runner import ConstantRunner
 
 def make_sut(
     participants=None
@@ -114,10 +114,12 @@ class TestMarathonTick():
             Participant(
                 name='John Doe',
                 age=30,
+                action_strategy=ConstantRunner(1)
             ),
             Participant(
                 name='Jane Doe',
                 age=25,
+                action_strategy=ConstantRunner(2)
             )
         ]
         sut = make_sut(
@@ -131,4 +133,4 @@ class TestMarathonTick():
         sut.tick()
 
         assert participants[0].state.position == start_positions[0] + 1
-        assert participants[1].state.position == start_positions[1] + 1
+        assert participants[1].state.position == start_positions[1] + 2
