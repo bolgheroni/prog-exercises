@@ -1,6 +1,6 @@
 from typing import List
 from src.participant import Participant
-from src.event_state import EventState
+from src.states.event_state import EventState
 
 
 class Event():

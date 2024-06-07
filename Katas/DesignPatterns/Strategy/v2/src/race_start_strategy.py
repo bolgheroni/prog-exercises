@@ -1,5 +1,5 @@
 from src.event import Event
-from src.participant_state import ParticipantState
+from src.states.participant_state import ParticipantState
 
 
 class RaceStartStrategy:

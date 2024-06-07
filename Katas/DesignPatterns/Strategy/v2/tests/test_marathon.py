@@ -1,6 +1,6 @@
 from src.marathon import create_marathon
 from src.participant import Participant
-from src.participant_state import ParticipantState
+from src.states.participant_state import ParticipantState
 from src.constant_runner import ConstantRunner
 
 def make_sut(

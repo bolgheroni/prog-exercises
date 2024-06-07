@@ -1,4 +1,4 @@
-from src.participant_state import ParticipantState
+from src.states.participant_state import ParticipantState
 from src.constant_runner import ConstantRunner
 
 class Participant:
