@@ -10,7 +10,6 @@ class Marathon:
         self.ticks = 0
         self.distance = 40000
         self.finished = False
-        self.winners = None
 
     def add_participant(self, name, age):
         self.participants.append((name, age))
@@ -20,7 +19,7 @@ class Marathon:
             participants=self._participants_description(),
             status=self._status_description(),
             ticks=self.ticks,
-            winners=self.winners
+            winners=self._get_winners()
         )
     
     def start(self):
@@ -33,16 +32,23 @@ class Marathon:
         for participant in self.participants:
             participant.act()
 
-        if self.check_finish():
-            self.finish()
+        if self._check_finish():
+            self._finish()
 
-    def check_finish(self):
-        return all([participant.state.position >= self.distance for participant in self.participants])
+    def _check_finish(self):
+        return self._get_winners() != None
     
-    def finish(self):
+    def _finish(self):
         self.started = False
         self.finished = True
-        self.winners = [participant for participant in self.participants if participant.state.position >= self.distance]
+
+    def _get_winners(self):
+        winners = [participant for participant in self.participants if participant.state.position >= self.distance]
+
+        if len(winners) == 0:
+            return None
+        
+        return winners
 
     def _status_description(self):
         if self.finished:
