@@ -26,6 +26,8 @@ class Marathon:
 
     def tick(self):
         self.ticks += 1
+        for participant in self.participants:
+            participant.act()
 
     def _status_description(self):
         return 'In progress' if self.started else 'Not started'

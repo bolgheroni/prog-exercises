@@ -96,3 +96,39 @@ class TestMarathonStart():
         sut.start()
 
         assert participants[0].state.position == 0
+
+
+class TestMarathonTick():
+    def test_increases_ticks(self):
+        sut = make_sut()
+        sut.start()
+
+        assert sut.ticks == 0
+
+        sut.tick()
+
+        assert sut.ticks == 1
+
+    def test_updates_participants_state(self):
+        participants = [
+            Participant(
+                name='John Doe',
+                age=30,
+            ),
+            Participant(
+                name='Jane Doe',
+                age=25,
+            )
+        ]
+        sut = make_sut(
+            participants=participants
+        )
+        sut.start()
+
+        start_positions = [participants[0].state.position,
+                           participants[1].state.position]
+
+        sut.tick()
+
+        assert participants[0].state.position == start_positions[0] + 1
+        assert participants[1].state.position == start_positions[1] + 1
