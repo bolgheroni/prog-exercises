@@ -134,3 +134,23 @@ class TestMarathonTick():
 
         assert participants[0].state.position == start_positions[0] + 1
         assert participants[1].state.position == start_positions[1] + 2
+
+    def test_finishes_race_after_runner_reaches_40000_meters(self):
+        participants = [
+            Participant(
+                name='John Doe',
+                age=30,
+                action_strategy=ConstantRunner(1)
+            ),
+        ]
+        sut = make_sut(
+            participants=participants
+        )
+        sut.start()
+
+        for _ in range(40000):
+            sut.tick()
+
+        current_state = sut.current_state()
+
+        assert 'finished' in current_state.status.lower()

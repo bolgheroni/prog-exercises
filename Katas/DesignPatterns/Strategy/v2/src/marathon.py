@@ -8,6 +8,8 @@ class Marathon:
         self.participants = participants or list()
         self.started = False
         self.ticks = 0
+        self.distance = 40000
+        self.finished = False
 
     def add_participant(self, name, age):
         self.participants.append((name, age))
@@ -29,8 +31,24 @@ class Marathon:
         for participant in self.participants:
             participant.act()
 
+        if self.check_finish():
+            self.finish()
+
+    def check_finish(self):
+        return all([participant.state.position >= self.distance for participant in self.participants])
+    
+    def finish(self):
+        self.started = False
+        self.finished = True
+
     def _status_description(self):
-        return 'In progress' if self.started else 'Not started'
+        if self.finished:
+            return 'Finished'
+
+        if self.started:
+            return 'In progress'
+
+        return 'Not started'        
 
     def _participants_description(self):
         if len(self.participants) == 0:
