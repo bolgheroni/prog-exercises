@@ -1,9 +1,9 @@
 from typing import List
 from src.participant import Participant
 from src.event import Event
-from src.non_stop_race_finish_strategy import NonStopRaceFinishStrategy
-from src.race_start_strategy import RaceStartStrategy
-from src.race_winners_strategy import RaceWinnersStrategy
+from src.event_strategies.non_stop_race_finish_strategy import NonStopRaceFinishStrategy
+from src.event_strategies.race_start_strategy import RaceStartStrategy
+from src.event_strategies.race_winners_strategy import RaceWinnersStrategy
 
 
 def create_marathon(participants: List[Participant]) -> Event:
