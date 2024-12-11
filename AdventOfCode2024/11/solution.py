@@ -60,6 +60,7 @@ def expand_times_size_with_cache(
         response += expand_times_size_with_cache(
             stone=expanded_stone, times=times - 1, cache=cache
         )
+        cache[expansion_code] = response
 
     return response
 
@@ -72,12 +73,20 @@ def expand_input_times(input_data: Sequence[Stone], times: int):
     return result
 
 
+def expand_input_times_size_with_cache(input_data: Sequence[Stone], times: int) -> int:
+    cache = dict()
+    result = 0
+    for stone in input_data:
+        result += expand_times_size_with_cache(stone=stone, times=times, cache=cache)
+
+    return result
+
+
 def main(file_path: str, times: int):
     data = get_input(file_path)
 
-    expanded = expand_input_times(input_data=data, times=times)
-
-    print(f"Expanded length: {len(expanded)}")
+    expanded_lenght = expand_input_times_size_with_cache(input_data=data, times=times)
+    print(f"Expanded length: {expanded_lenght}")
 
 
 if __name__ == "__main__":
