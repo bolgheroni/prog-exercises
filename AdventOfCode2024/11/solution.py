@@ -16,11 +16,13 @@ def expand_once(stone: Stone) -> Sequence[Stone]:
     str_stone = str(stone)
     digits_amount = len(str_stone)
 
-    if digits_amount % 2 == 0:
-        left_digits = str_stone[: int(digits_amount / 2)]
-        return [Stone(left_digits), Stone(0)]
+    if digits_amount % 2 != 0:
+        return [Stone(2024 * stone)]
 
-    return [Stone(2024 * stone)]
+    left_digits = str_stone[: int(digits_amount / 2)]
+    right_digits = str_stone[int(-digits_amount / 2) :]
+
+    return [Stone(left_digits), Stone(right_digits)]
 
 
 def main(file_path: str):
