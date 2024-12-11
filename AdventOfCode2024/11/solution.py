@@ -25,6 +25,10 @@ def expand_once(stone: Stone) -> Sequence[Stone]:
     return [Stone(left_digits), Stone(right_digits)]
 
 
+def expand_times(stone: Stone, times: int):
+    return expand_once(stone=stone)
+
+
 def main(file_path: str):
     data = get_input(file_path)
     print(data)
