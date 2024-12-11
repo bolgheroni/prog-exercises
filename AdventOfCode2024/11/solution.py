@@ -47,15 +47,16 @@ def expand_input_times(input_data: Sequence[Stone], times: int):
     return result
 
 
-def main(file_path: str):
+def main(file_path: str, times: int):
     data = get_input(file_path)
 
-    expanded = expand_input_times(input_data=data, times=25)
+    expanded = expand_input_times(input_data=data, times=times)
 
     print(f"Expanded length: {len(expanded)}")
 
 
 if __name__ == "__main__":
     file_path = sys.argv[1]
+    times = sys.argv[2]
 
-    main(file_path)
+    main(file_path, int(times))
