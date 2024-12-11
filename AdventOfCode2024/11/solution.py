@@ -54,7 +54,14 @@ def expand_times_size_with_cache(
 
         return response
 
-    return 0
+    response = 0
+
+    for expanded_stone in expanded_once_sequence:
+        response += expand_times_size_with_cache(
+            stone=expanded_stone, times=times - 1, cache=cache
+        )
+
+    return response
 
 
 def expand_input_times(input_data: Sequence[Stone], times: int):
