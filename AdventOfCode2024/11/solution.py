@@ -25,8 +25,18 @@ def expand_once(stone: Stone) -> Sequence[Stone]:
     return [Stone(left_digits), Stone(right_digits)]
 
 
-def expand_times(stone: Stone, times: int):
-    return expand_once(stone=stone)
+def expand_times(stone: Stone, times: int) -> Sequence[Stone]:
+    expanded_once_sequence = expand_once(stone)
+    if times == 1:
+        return expanded_once_sequence
+
+    result = []
+
+    for expanded_stone in expanded_once_sequence:
+        full_branch = expand_times(expanded_stone, times - 1)
+        result.extend(full_branch)
+
+    return result
 
 
 def main(file_path: str):
