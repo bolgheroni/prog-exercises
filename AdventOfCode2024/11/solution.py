@@ -39,6 +39,14 @@ def expand_times(stone: Stone, times: int) -> Sequence[Stone]:
     return result
 
 
+def expand_input_times(input_data: Sequence[Stone], times: int):
+    result = []
+    for stone in input_data:
+        result.extend(expand_times(stone, times))
+
+    return result
+
+
 def main(file_path: str):
     data = get_input(file_path)
     print(data)
