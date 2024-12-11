@@ -2,11 +2,20 @@ from typing import Dict, List, Sequence
 import sys
 from models import Stone, get_expansion_code
 
+####################################################################################################
+####                                         Parsing                                            ####
+####################################################################################################
+
 
 def get_input(file_path: str) -> List[int]:
     with open(file_path, "r") as file:
         line = file.readline()
         return [int(x) for x in line.split(" ")]
+
+
+####################################################################################################
+####                                           PT 1                                             ####
+####################################################################################################
 
 
 def expand_once(stone: Stone) -> Sequence[Stone]:
@@ -39,6 +48,19 @@ def expand_times(stone: Stone, times: int) -> Sequence[Stone]:
     return result
 
 
+def expand_input_times(input_data: Sequence[Stone], times: int):
+    result = []
+    for stone in input_data:
+        result.extend(expand_times(stone, times))
+
+    return result
+
+
+####################################################################################################
+####                                           PT 2                                             ####
+####################################################################################################
+
+
 def expand_times_size_with_cache(
     stone: Stone, times: int, cache: Dict[str, int]
 ) -> int:
@@ -65,14 +87,6 @@ def expand_times_size_with_cache(
     return response
 
 
-def expand_input_times(input_data: Sequence[Stone], times: int):
-    result = []
-    for stone in input_data:
-        result.extend(expand_times(stone, times))
-
-    return result
-
-
 def expand_input_times_size_with_cache(input_data: Sequence[Stone], times: int) -> int:
     cache = dict()
     result = 0
@@ -80,6 +94,11 @@ def expand_input_times_size_with_cache(input_data: Sequence[Stone], times: int) 
         result += expand_times_size_with_cache(stone=stone, times=times, cache=cache)
 
     return result
+
+
+####################################################################################################
+####                                           Main                                             ####
+####################################################################################################
 
 
 def main(file_path: str, times: int):
