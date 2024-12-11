@@ -1,6 +1,6 @@
 from typing import Dict, List, Sequence
 import sys
-from models import Stone, expansion_code
+from models import Stone, get_expansion_code
 
 
 def get_input(file_path: str) -> List[int]:
@@ -42,10 +42,19 @@ def expand_times(stone: Stone, times: int) -> Sequence[Stone]:
 def expand_times_size_with_cache(
     stone: Stone, times: int, cache: Dict[str, int]
 ) -> int:
-    cached_response = cache.get(expansion_code(stone=stone, times=times))
+    expansion_code = get_expansion_code(stone=stone, times=times)
+    cached_response = cache.get(expansion_code)
     if cached_response is not None:
         return cached_response
-    return len(expand_times(stone, times))
+
+    expanded_once_sequence = expand_once(stone)
+    if times == 1:
+        response = len(expanded_once_sequence)
+        cache[expansion_code] = response
+
+        return response
+
+    return 0
 
 
 def expand_input_times(input_data: Sequence[Stone], times: int):
