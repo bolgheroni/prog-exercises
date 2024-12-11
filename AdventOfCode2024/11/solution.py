@@ -13,6 +13,13 @@ def expand_once(stone: Stone) -> Sequence[Stone]:
     if stone == Stone(0):
         return [stone + 1]
 
+    str_stone = str(stone)
+    digits_amount = len(str_stone)
+
+    if digits_amount % 2 == 0:
+        left_digits = str_stone[: int(digits_amount / 2)]
+        return [Stone(left_digits), Stone(0)]
+
     return [Stone(2024 * stone)]
 
 

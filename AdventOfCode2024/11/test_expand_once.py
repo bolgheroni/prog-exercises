@@ -26,9 +26,9 @@ def test_expand_two():
     assert result == [Stone(4048)]
 
 
-# def test_expand_ten():
-#     stone = Stone(10)
+def test_expand_ten():
+    stone = Stone(10)
 
-#     result = expand_once(stone)
+    result = expand_once(stone)
 
-#     assert result == [Stone(1), Stone(0)]
+    assert result == [Stone(1), Stone(0)]
