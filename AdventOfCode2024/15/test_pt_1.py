@@ -157,3 +157,88 @@ def test_box_against_wall():
 
     assert gm.check_position(expected_robot_pos) == ObjectType.ROBOT
     assert gm.check_position(expected_box_pos) == ObjectType.BOX
+
+
+def test_two_boxes():
+    gm = RowsGameMap(
+        [
+            [
+                ObjectType.ROBOT,
+                ObjectType.BOX,
+                ObjectType.BOX,
+                ObjectType.EMPTY,
+            ],
+        ]
+    )
+
+    movements = [
+        Movement.RIGHT,
+    ]
+    expected_robot_pos = Position(0, 1)
+    expected_boxes_pos = [
+        Position(0, 2),
+        Position(0, 3),
+    ]
+
+    apply_movements(gm, movements)
+
+    assert gm.check_position(expected_robot_pos) == ObjectType.ROBOT
+    for pos in expected_boxes_pos:
+        assert gm.check_position(pos) == ObjectType.BOX
+
+
+def test_two_boxes_against_wall():
+    gm = RowsGameMap(
+        [
+            [
+                ObjectType.ROBOT,
+                ObjectType.BOX,
+                ObjectType.BOX,
+                ObjectType.WALL,
+            ],
+        ]
+    )
+
+    movements = [
+        Movement.RIGHT,
+    ]
+    expected_robot_pos = Position(0, 0)
+    expected_boxes_pos = [
+        Position(0, 1),
+        Position(0, 2),
+    ]
+
+    apply_movements(gm, movements)
+
+    assert gm.check_position(expected_robot_pos) == ObjectType.ROBOT
+    for pos in expected_boxes_pos:
+        assert gm.check_position(pos) == ObjectType.BOX
+
+
+def test_two_boxes_one_move_then_wall():
+    gm = RowsGameMap(
+        [
+            [
+                ObjectType.ROBOT,
+                ObjectType.BOX,
+                ObjectType.BOX,
+                ObjectType.EMPTY,
+                ObjectType.WALL,
+            ],
+        ]
+    )
+
+    movements = [
+        Movement.RIGHT,
+    ]
+    expected_robot_pos = Position(0, 1)
+    expected_boxes_pos = [
+        Position(0, 2),
+        Position(0, 3),
+    ]
+
+    apply_movements(gm, movements)
+
+    assert gm.check_position(expected_robot_pos) == ObjectType.ROBOT
+    for pos in expected_boxes_pos:
+        assert gm.check_position(pos) == ObjectType.BOX
