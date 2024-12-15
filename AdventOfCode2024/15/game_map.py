@@ -27,3 +27,14 @@ class RowsGameMap(GameMap):
 
     def set_element(self, position: Position, element: ElementType):
         self._rows[position.x][position.y] = element
+
+    def __str__(self):
+        output = ""
+
+        for row in self._rows:
+            for element in row:
+                output += element.value
+
+            output += "\n"
+
+        return output

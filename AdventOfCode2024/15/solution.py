@@ -1,8 +1,8 @@
 import sys
 from typing import List, Tuple
 
-from models import Movement
-from game_map import EmptyGameMap, GameMap
+from models import ElementType, Movement
+from game_map import GameMap, RowsGameMap
 ####################################################################################################
 ####                                          Input                                             ####
 ####################################################################################################
@@ -11,14 +11,22 @@ from game_map import EmptyGameMap, GameMap
 def get_input(
     map_file_path: str, movements_file_path: str
 ) -> Tuple[GameMap, List[Movement]]:
-    # with open(map_file_path, "r") as file:
-    #     line = file.readline()
+    with open(map_file_path, "r") as file:
+        rows = []
+        for line in file.readlines():
+            new_row = []
+
+            for col in line:
+                if col != "\n":
+                    new_row.append(ElementType(col))
+
+            rows.append(new_row)
 
     movements = []
     # with open(movements_file_path, "r") as file:
     #     line = file.readline()
 
-    return [EmptyGameMap(), movements]
+    return [RowsGameMap(rows=rows), movements]
 
 
 ####################################################################################################
@@ -32,7 +40,8 @@ def main(map_file_path: str, movements_file_path: str):
     )
 
     solution = ""
-    print(f"Solution: {solution}")
+    print(f"GameMap: \n\n{game_map}")
+    print(f"Solution: \n\n{solution}")
 
 
 if __name__ == "__main__":

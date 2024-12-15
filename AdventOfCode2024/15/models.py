@@ -2,10 +2,10 @@ from enum import Enum
 
 
 class ElementType(Enum):
-    WALL = 0
-    ROBOT = 1
-    BOX = 2
-    EMPTY = 3
+    WALL = "#"
+    ROBOT = "@"
+    BOX = "O"
+    EMPTY = "."
 
 
 class Position:
