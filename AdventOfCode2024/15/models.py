@@ -5,6 +5,8 @@ class ObjectType(Enum):
     WALL = "#"
     ROBOT = "@"
     BOX = "O"
+    BOX_L = "["
+    BOX_R = "]"
     EMPTY = "."
 
 

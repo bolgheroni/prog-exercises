@@ -39,6 +39,15 @@ def push_object(
         if pushed_object_position == new_object_pos:
             return object_position
 
+    if new_position_object == ObjectType.BOX_L:
+        # push right side first
+        pushed_box_r_position = push_object(game_map, new_object_pos.add_y(1), movement)
+        is_r_stuck = pushed_box_r_position == new_object_pos.add_y(1)
+        if is_r_stuck:
+            return object_position
+        else:
+            push_object(game_map, new_object_pos, movement)
+
     game_map.set_object(new_object_pos, object_type)
     game_map.set_object(object_position, ObjectType.EMPTY)
 
