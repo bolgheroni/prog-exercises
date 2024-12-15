@@ -111,3 +111,28 @@ def test_against_wall():
     robot_pos = gm.get_robot_position()
 
     assert robot_pos == starting_pos
+
+
+def test_pushes_box():
+    gm = RowsGameMap(
+        [
+            [
+                ObjectType.ROBOT,
+                ObjectType.BOX,
+                ObjectType.EMPTY,
+            ],
+        ]
+    )
+
+    print(gm)
+
+    movements = [
+        Movement.RIGHT,
+    ]
+    expected_robot_pos = Position(0, 1)
+    expected_box_pos = Position(0, 2)
+
+    apply_movements(gm, movements)
+
+    assert gm.check_position(expected_robot_pos) == ObjectType.ROBOT
+    assert gm.check_position(expected_box_pos) == ObjectType.BOX
