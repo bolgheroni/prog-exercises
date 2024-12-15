@@ -1,4 +1,4 @@
-from models import ElementType, Movement, Position
+from models import ObjectType, Movement, Position
 from game_map import GameMap
 
 ####################################################################################################
@@ -10,31 +10,31 @@ def apply_movements(game_map: GameMap, movements: list[Movement]):
     old_robot_pos = game_map.get_robot_position()
 
     for movement in movements:
-        old_robot_pos = push_element(game_map, old_robot_pos, movement)
+        old_robot_pos = push_object(game_map, old_robot_pos, movement)
 
 
-def push_element(
+def push_object(
     game_map: GameMap,
-    element_position: Position,
+    object_position: Position,
     movement: Movement,
 ) -> Position:
-    element = game_map.check_position(element_position)
+    object_type = game_map.check_position(object_position)
     match movement:
         case Movement.RIGHT:
-            new_element_pos = element_position.add_y(1)
+            new_object_pos = object_position.add_y(1)
         case Movement.DOWN:
-            new_element_pos = element_position.add_x(1)
+            new_object_pos = object_position.add_x(1)
         case Movement.LEFT:
-            new_element_pos = element_position.add_y(-1)
+            new_object_pos = object_position.add_y(-1)
         case Movement.UP:
-            new_element_pos = element_position.add_x(-1)
+            new_object_pos = object_position.add_x(-1)
 
-    new_position_element = game_map.check_position(new_element_pos)
+    new_position_object = game_map.check_position(new_object_pos)
 
-    if new_position_element == ElementType.WALL:
-        return element_position
+    if new_position_object == ObjectType.WALL:
+        return object_position
 
-    game_map.set_element(new_element_pos, element)
-    game_map.set_element(element_position, ElementType.EMPTY)
+    game_map.set_object(new_object_pos, object_type)
+    game_map.set_object(object_position, ObjectType.EMPTY)
 
-    return new_element_pos
+    return new_object_pos

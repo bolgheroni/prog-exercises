@@ -1,12 +1,12 @@
 from game_map import RowsGameMap
-from models import ElementType, Movement, Position
+from models import ObjectType, Movement, Position
 from core import apply_movements
 
 
 def test_single_linear_movement():
     gm = RowsGameMap(
         [
-            [ElementType.ROBOT, ElementType.EMPTY],
+            [ObjectType.ROBOT, ObjectType.EMPTY],
         ]
     )
 
@@ -24,11 +24,11 @@ def test_multiple_linear_movement():
     gm = RowsGameMap(
         [
             [
-                ElementType.ROBOT,
-                ElementType.EMPTY,
-                ElementType.EMPTY,
-                ElementType.EMPTY,
-                ElementType.EMPTY,
+                ObjectType.ROBOT,
+                ObjectType.EMPTY,
+                ObjectType.EMPTY,
+                ObjectType.EMPTY,
+                ObjectType.EMPTY,
             ],
         ]
     )
@@ -47,16 +47,16 @@ def test_multiple_bilinear_movement():
     gm = RowsGameMap(
         [
             [
-                ElementType.ROBOT,
-                ElementType.EMPTY,
+                ObjectType.ROBOT,
+                ObjectType.EMPTY,
             ],
             [
-                ElementType.EMPTY,
-                ElementType.EMPTY,
+                ObjectType.EMPTY,
+                ObjectType.EMPTY,
             ],
             [
-                ElementType.EMPTY,
-                ElementType.EMPTY,
+                ObjectType.EMPTY,
+                ObjectType.EMPTY,
             ],
         ]
     )
@@ -81,19 +81,19 @@ def test_against_wall():
     gm = RowsGameMap(
         [
             [
-                ElementType.WALL,
-                ElementType.WALL,
-                ElementType.WALL,
+                ObjectType.WALL,
+                ObjectType.WALL,
+                ObjectType.WALL,
             ],
             [
-                ElementType.WALL,
-                ElementType.ROBOT,
-                ElementType.WALL,
+                ObjectType.WALL,
+                ObjectType.ROBOT,
+                ObjectType.WALL,
             ],
             [
-                ElementType.WALL,
-                ElementType.WALL,
-                ElementType.WALL,
+                ObjectType.WALL,
+                ObjectType.WALL,
+                ObjectType.WALL,
             ],
         ]
     )

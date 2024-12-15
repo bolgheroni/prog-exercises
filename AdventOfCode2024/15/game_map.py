@@ -1,13 +1,13 @@
 from abc import ABC, abstractmethod
-from models import Position, ElementType
+from models import Position, ObjectType
 
 
 class GameMap(ABC):
     @abstractmethod
-    def check_position(self, position: Position) -> ElementType: ...
+    def check_position(self, position: Position) -> ObjectType: ...
 
     @abstractmethod
-    def set_element(self, position: Position, element: ElementType): ...
+    def set_object(self, position: Position, object: ObjectType): ...
 
     @abstractmethod
     def get_robot_position(self) -> Position: ...
@@ -15,9 +15,9 @@ class GameMap(ABC):
 
 class EmptyGameMap(GameMap):
     def check_position(self, position):
-        return ElementType.EMPTY
+        return ObjectType.EMPTY
 
-    def set_element(self, position, element):
+    def set_object(self, position, object):
         pass
 
     def get_robot_position(self):
@@ -25,21 +25,21 @@ class EmptyGameMap(GameMap):
 
 
 class RowsGameMap(GameMap):
-    def __init__(self, rows: list[list[ElementType]]):
+    def __init__(self, rows: list[list[ObjectType]]):
         self._rows = rows
 
     def check_position(self, position: Position):
         return self._rows[position.x][position.y]
 
-    def set_element(self, position: Position, element: ElementType):
-        self._rows[position.x][position.y] = element
+    def set_object(self, position: Position, object: ObjectType):
+        self._rows[position.x][position.y] = object
 
     def get_robot_position(self):
         i = 0
         for i in range(0, len(self._rows)):
             for j in range(0, len(self._rows[0])):
                 pos = Position(i, j)
-                if self.check_position(pos) == ElementType.ROBOT:
+                if self.check_position(pos) == ObjectType.ROBOT:
                     return pos
 
         raise Exception("Robot not found")
@@ -48,8 +48,8 @@ class RowsGameMap(GameMap):
         output = ""
 
         for row in self._rows:
-            for element in row:
-                output += element.value
+            for object in row:
+                output += object.value
 
             output += "\n"
 

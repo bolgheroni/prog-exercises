@@ -1,27 +1,27 @@
 from game_map import RowsGameMap
-from models import ElementType, Position
+from models import ObjectType, Position
 
 
 def test_single_position_get():
-    gm = RowsGameMap([[ElementType.BOX]])
+    gm = RowsGameMap([[ObjectType.BOX]])
 
     zero_pos = gm.check_position(Position(0, 0))
 
-    assert zero_pos == ElementType.BOX
+    assert zero_pos == ObjectType.BOX
 
 
 def test_single_position_set():
-    gm = RowsGameMap([[ElementType.BOX]])
+    gm = RowsGameMap([[ObjectType.BOX]])
 
-    gm.set_element(Position(0, 0), ElementType.WALL)
+    gm.set_object(Position(0, 0), ObjectType.WALL)
 
     zero_pos = gm.check_position(Position(0, 0))
 
-    assert zero_pos == ElementType.WALL
+    assert zero_pos == ObjectType.WALL
 
 
 def test_single_get_robot_position():
-    gm = RowsGameMap([[ElementType.ROBOT]])
+    gm = RowsGameMap([[ObjectType.ROBOT]])
 
     robot_pos = gm.get_robot_position()
 
@@ -31,39 +31,39 @@ def test_single_get_robot_position():
 def test_multiple_check_position():
     gm = RowsGameMap(
         [
-            [ElementType.WALL, ElementType.EMPTY, ElementType.WALL],
-            [ElementType.WALL, ElementType.EMPTY, ElementType.WALL],
-            [ElementType.WALL, ElementType.ROBOT, ElementType.WALL],
+            [ObjectType.WALL, ObjectType.EMPTY, ObjectType.WALL],
+            [ObjectType.WALL, ObjectType.EMPTY, ObjectType.WALL],
+            [ObjectType.WALL, ObjectType.ROBOT, ObjectType.WALL],
         ]
     )
 
     pos = gm.check_position(Position(2, 1))
 
-    assert pos == ElementType.ROBOT
+    assert pos == ObjectType.ROBOT
 
 
-def test_multiple_set_element():
+def test_multiple_set_object():
     gm = RowsGameMap(
         [
-            [ElementType.WALL, ElementType.EMPTY, ElementType.WALL],
-            [ElementType.WALL, ElementType.EMPTY, ElementType.WALL],
-            [ElementType.WALL, ElementType.ROBOT, ElementType.WALL],
+            [ObjectType.WALL, ObjectType.EMPTY, ObjectType.WALL],
+            [ObjectType.WALL, ObjectType.EMPTY, ObjectType.WALL],
+            [ObjectType.WALL, ObjectType.ROBOT, ObjectType.WALL],
         ]
     )
 
-    assert gm.check_position(Position(1, 1)) == ElementType.EMPTY
+    assert gm.check_position(Position(1, 1)) == ObjectType.EMPTY
 
-    gm.set_element(Position(1, 1), ElementType.WALL)
+    gm.set_object(Position(1, 1), ObjectType.WALL)
 
-    assert gm.check_position(Position(1, 1)) == ElementType.WALL
+    assert gm.check_position(Position(1, 1)) == ObjectType.WALL
 
 
 def test_multiple_get_robot_position():
     gm = RowsGameMap(
         [
-            [ElementType.WALL, ElementType.EMPTY, ElementType.WALL],
-            [ElementType.WALL, ElementType.EMPTY, ElementType.WALL],
-            [ElementType.WALL, ElementType.ROBOT, ElementType.WALL],
+            [ObjectType.WALL, ObjectType.EMPTY, ObjectType.WALL],
+            [ObjectType.WALL, ObjectType.EMPTY, ObjectType.WALL],
+            [ObjectType.WALL, ObjectType.ROBOT, ObjectType.WALL],
         ]
     )
 

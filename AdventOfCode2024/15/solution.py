@@ -1,7 +1,7 @@
 import sys
 from typing import List, Tuple
 
-from models import ElementType, Movement
+from models import ObjectType, Movement
 from game_map import GameMap, RowsGameMap
 
 ####################################################################################################
@@ -19,7 +19,7 @@ def get_input(
 
             for col in line:
                 if col != "\n":
-                    new_row.append(ElementType(col))
+                    new_row.append(ObjectType(col))
 
             rows.append(new_row)
 

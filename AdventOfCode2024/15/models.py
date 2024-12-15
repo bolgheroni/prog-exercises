@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class ElementType(Enum):
+class ObjectType(Enum):
     WALL = "#"
     ROBOT = "@"
     BOX = "O"
