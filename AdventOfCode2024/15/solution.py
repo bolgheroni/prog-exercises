@@ -3,6 +3,7 @@ from typing import List, Tuple
 
 from models import ElementType, Movement
 from game_map import GameMap, RowsGameMap
+
 ####################################################################################################
 ####                                          Input                                             ####
 ####################################################################################################
