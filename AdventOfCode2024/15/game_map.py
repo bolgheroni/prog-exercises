@@ -9,6 +9,9 @@ class GameMap(ABC):
     @abstractmethod
     def set_element(self, position: Position, element: ElementType): ...
 
+    @abstractmethod
+    def get_robot_position(self) -> Position: ...
+
 
 class EmptyGameMap(GameMap):
     def check_position(self, position):
@@ -16,6 +19,9 @@ class EmptyGameMap(GameMap):
 
     def set_element(self, position, element):
         pass
+
+    def get_robot_position(self):
+        return Position(0, 0)
 
 
 class RowsGameMap(GameMap):
@@ -27,6 +33,16 @@ class RowsGameMap(GameMap):
 
     def set_element(self, position: Position, element: ElementType):
         self._rows[position.x][position.y] = element
+
+    def get_robot_position(self):
+        i = 0
+        for i in range(0, len(self._rows)):
+            for j in range(0, len(self._rows[0])):
+                pos = Position(i, j)
+                if self.check_position(pos) == ElementType.ROBOT:
+                    return pos
+
+        raise Exception("Robot not found")
 
     def __str__(self):
         output = ""

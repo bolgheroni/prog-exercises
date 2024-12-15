@@ -16,6 +16,12 @@ class Position:
         self.x = x
         self.y = y
 
+    def __eq__(self, value):
+        if not isinstance(value, Position):
+            return False
+
+        return value.x == self.x and value.y == self.y
+
 
 class Movement(str, Enum):
     UP = "^"
