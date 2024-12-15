@@ -21,45 +21,50 @@ def push_object(
     object_type = game_map.check_position(object_position)
     match movement:
         case Movement.RIGHT:
-            new_object_pos = object_position.add_y(1)
+            target_pos = object_position.add_y(1)
         case Movement.DOWN:
-            new_object_pos = object_position.add_x(1)
+            target_pos = object_position.add_x(1)
         case Movement.LEFT:
-            new_object_pos = object_position.add_y(-1)
+            target_pos = object_position.add_y(-1)
         case Movement.UP:
-            new_object_pos = object_position.add_x(-1)
+            target_pos = object_position.add_x(-1)
 
-    new_position_object = game_map.check_position(new_object_pos)
+    next_object = game_map.check_position(target_pos)
 
-    if new_position_object == ObjectType.WALL:
+    if next_object == ObjectType.WALL:
         return object_position
 
-    if new_position_object == ObjectType.BOX:
-        pushed_object_position = push_object(game_map, new_object_pos, movement)
-        if pushed_object_position == new_object_pos:
+    if next_object == ObjectType.BOX:
+        pushed_next_object_position = push_object(game_map, target_pos, movement)
+        is_next_object_stuck = pushed_next_object_position == target_pos
+        if is_next_object_stuck:
             return object_position
 
-    if new_position_object == ObjectType.BOX_L and movement == Movement.RIGHT:
+    if next_object == ObjectType.BOX_L and movement == Movement.RIGHT:
         # push right side first
-        pushed_box_r_position = push_object(game_map, new_object_pos.add_y(1), movement)
-        is_r_stuck = pushed_box_r_position == new_object_pos.add_y(1)
+        box_r_position = target_pos.add_y(1)
+        pushed_box_r_position = push_object(game_map, box_r_position, movement)
+        is_r_stuck = pushed_box_r_position == box_r_position
+
         if is_r_stuck:
             return object_position
         else:
-            push_object(game_map, new_object_pos, movement)
+            # now push left side
+            push_object(game_map, target_pos, movement)
 
-    if new_position_object == ObjectType.BOX_R and movement == Movement.LEFT:
+    if next_object == ObjectType.BOX_R and movement == Movement.LEFT:
         # push left side first
-        pushed_box_l_position = push_object(
-            game_map, new_object_pos.add_y(-1), movement
-        )
-        is_l_stuck = pushed_box_l_position == new_object_pos.add_y(-1)
+        box_l_position = target_pos.add_y(-1)
+        pushed_box_l_position = push_object(game_map, box_l_position, movement)
+        is_l_stuck = pushed_box_l_position == box_l_position
+
         if is_l_stuck:
             return object_position
         else:
-            push_object(game_map, new_object_pos, movement)
+            # now push right side
+            push_object(game_map, target_pos, movement)
 
-    game_map.set_object(new_object_pos, object_type)
+    game_map.set_object(target_pos, object_type)
     game_map.set_object(object_position, ObjectType.EMPTY)
 
-    return new_object_pos
+    return target_pos
