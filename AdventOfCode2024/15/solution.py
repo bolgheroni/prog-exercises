@@ -23,8 +23,11 @@ def get_input(
             rows.append(new_row)
 
     movements = []
-    # with open(movements_file_path, "r") as file:
-    #     line = file.readline()
+    with open(movements_file_path, "r") as file:
+        for line in file.readlines():
+            for col in line:
+                if col != "\n":
+                    movements.append(Movement(col))
 
     return [RowsGameMap(rows=rows), movements]
 
@@ -40,7 +43,8 @@ def main(map_file_path: str, movements_file_path: str):
     )
 
     solution = ""
-    print(f"GameMap: \n\n{game_map}")
+    # print(f"GameMap: \n\n{game_map}")
+    # print(f"Movements: \n\n{movements}")
     print(f"Solution: \n\n{solution}")
 
 
