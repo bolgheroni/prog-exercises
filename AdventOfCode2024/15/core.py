@@ -35,7 +35,9 @@ def push_object(
         return object_position
 
     if new_position_object == ObjectType.BOX:
-        push_object(game_map, new_object_pos, movement)
+        pushed_object_position = push_object(game_map, new_object_pos, movement)
+        if pushed_object_position == new_object_pos:
+            return object_position
 
     game_map.set_object(new_object_pos, object_type)
     game_map.set_object(object_position, ObjectType.EMPTY)
