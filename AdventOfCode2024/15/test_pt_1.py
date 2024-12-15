@@ -75,3 +75,39 @@ def test_multiple_bilinear_movement():
     robot_pos = gm.get_robot_position()
 
     assert robot_pos == expected_pos
+
+
+def test_against_wall():
+    gm = RowsGameMap(
+        [
+            [
+                ElementType.WALL,
+                ElementType.WALL,
+                ElementType.WALL,
+            ],
+            [
+                ElementType.WALL,
+                ElementType.ROBOT,
+                ElementType.WALL,
+            ],
+            [
+                ElementType.WALL,
+                ElementType.WALL,
+                ElementType.WALL,
+            ],
+        ]
+    )
+
+    movements = [
+        Movement.RIGHT,
+        Movement.DOWN,
+        Movement.LEFT,
+        Movement.RIGHT,
+        Movement.UP,
+    ]
+    starting_pos = gm.get_robot_position()
+    apply_movements(gm, movements)
+
+    robot_pos = gm.get_robot_position()
+
+    assert robot_pos == starting_pos

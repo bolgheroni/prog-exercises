@@ -20,6 +20,9 @@ def apply_movements(game_map: GameMap, movements: list[Movement]):
             case Movement.UP:
                 new_robot_pos = old_robot_pos.add_x(-1)
 
+        if game_map.check_position(new_robot_pos) == ElementType.WALL:
+            continue
+
         game_map.set_element(new_robot_pos, ElementType.ROBOT)
         game_map.set_element(old_robot_pos, ElementType.EMPTY)
 
