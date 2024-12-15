@@ -12,6 +12,9 @@ class GameMap(ABC):
     @abstractmethod
     def get_robot_position(self) -> Position: ...
 
+    @abstractmethod
+    def calculate_score(self) -> int: ...
+
 
 class EmptyGameMap(GameMap):
     def check_position(self, position):
@@ -22,6 +25,9 @@ class EmptyGameMap(GameMap):
 
     def get_robot_position(self):
         return Position(0, 0)
+
+    def calculate_score(self):
+        return 0
 
 
 class RowsGameMap(GameMap):
@@ -54,3 +60,14 @@ class RowsGameMap(GameMap):
             output += "\n"
 
         return output
+
+    def calculate_score(self):
+        score = 0
+        i = 0
+        for i in range(0, len(self._rows)):
+            for j in range(0, len(self._rows[0])):
+                pos = Position(i, j)
+                if self.check_position(pos) == ObjectType.BOX:
+                    score += i * 100 + j
+
+        return score

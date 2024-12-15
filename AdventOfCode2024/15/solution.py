@@ -3,6 +3,7 @@ from typing import List, Tuple
 
 from models import ObjectType, Movement
 from game_map import GameMap, RowsGameMap
+from core import apply_movements
 
 ####################################################################################################
 ####                                          Input                                             ####
@@ -43,7 +44,9 @@ def main(map_file_path: str, movements_file_path: str):
         map_file_path=map_file_path, movements_file_path=movements_file_path
     )
 
-    solution = ""
+    apply_movements(game_map=game_map, movements=movements)
+
+    solution = game_map.calculate_score()
     # print(f"GameMap: \n\n{game_map}")
     # print(f"Movements: \n\n{movements}")
     print(f"Solution: \n\n{solution}")
