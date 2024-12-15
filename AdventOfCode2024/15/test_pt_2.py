@@ -222,3 +222,63 @@ def test_push_stacked_double_boxes_up_not_aligned():
 
     for position, obj_type in expected_positions:
         assert gm.check_position(position) == obj_type, f"{position}"
+
+
+def test_blocked_push_stacked_double_boxes_up_not_aligned():
+    gm = RowsGameMap(
+        [
+            [
+                ObjectType.WALL,
+                ObjectType.EMPTY,
+                ObjectType.EMPTY,
+                ObjectType.EMPTY,
+                ObjectType.EMPTY,
+            ],
+            [
+                ObjectType.BOX_L,
+                ObjectType.BOX_R,
+                ObjectType.EMPTY,
+                ObjectType.EMPTY,
+                ObjectType.EMPTY,
+            ],
+            [
+                ObjectType.BOX_L,
+                ObjectType.BOX_R,
+                ObjectType.BOX_L,
+                ObjectType.BOX_R,
+                ObjectType.EMPTY,
+            ],
+            [
+                ObjectType.EMPTY,
+                ObjectType.BOX_L,
+                ObjectType.BOX_R,
+                ObjectType.EMPTY,
+                ObjectType.EMPTY,
+            ],
+            [
+                ObjectType.EMPTY,
+                ObjectType.EMPTY,
+                ObjectType.ROBOT,
+                ObjectType.EMPTY,
+                ObjectType.EMPTY,
+            ],
+        ]
+    )
+
+    movements = [Movement.UP]
+
+    expected_positions = [
+        [Position(1, 0), ObjectType.BOX_L],
+        [Position(1, 1), ObjectType.BOX_R],
+        [Position(2, 0), ObjectType.BOX_L],
+        [Position(2, 1), ObjectType.BOX_R],
+        [Position(2, 2), ObjectType.BOX_L],
+        [Position(2, 3), ObjectType.BOX_R],
+        [Position(3, 1), ObjectType.BOX_L],
+        [Position(3, 2), ObjectType.BOX_R],
+        [Position(4, 2), ObjectType.ROBOT],
+    ]
+    apply_movements(gm, movements)
+
+    for position, obj_type in expected_positions:
+        assert gm.check_position(position) == obj_type, f"{position}"

@@ -81,7 +81,8 @@ def push_object(
         ):
             force_push_object(game_map, box_l_position, movement)
             force_push_object(game_map, box_r_position, movement)
-
+        else:
+            return object_position
     game_map.set_object(target_pos, object_type)
     game_map.set_object(object_position, ObjectType.EMPTY)
 
@@ -94,11 +95,32 @@ def can_push_double_box_vertically(
     box_r_position: Position,
     movement: Movement,
 ) -> bool:
-    # next_positions = map(
-    #     lambda pos: pos.move(movement), [box_l_position, box_r_position]
-    # )
+    target_positions = map(
+        lambda pos: pos.move(movement), [box_l_position, box_r_position]
+    )
 
-    # for next_position in next_positions:
+    for target_pos in target_positions:
+        next_object = game_map.check_position(target_pos)
+
+        if next_object in {ObjectType.BOX_L, ObjectType.BOX_R} and movement in {
+            Movement.UP,
+            Movement.DOWN,
+        }:
+            # has to be able to push both sides
+            if next_object == ObjectType.BOX_L:
+                next_box_l_position = target_pos
+                next_box_r_position = target_pos.add_y(1)
+            else:
+                next_box_l_position = target_pos.add_y(-1)
+                next_box_r_position = target_pos
+
+            if not can_push_double_box_vertically(
+                game_map, next_box_l_position, next_box_r_position, movement
+            ):
+                return False
+        if next_object == ObjectType.WALL:
+            return False
+
     return True
 
 
