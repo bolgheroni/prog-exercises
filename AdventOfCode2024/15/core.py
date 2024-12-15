@@ -10,7 +10,15 @@ def apply_movements(game_map: GameMap, movements: list[Movement]):
     old_robot_pos = game_map.get_robot_position()
 
     for movement in movements:
-        new_robot_pos = old_robot_pos.add_y(1)
+        match movement:
+            case Movement.RIGHT:
+                new_robot_pos = old_robot_pos.add_y(1)
+            case Movement.DOWN:
+                new_robot_pos = old_robot_pos.add_x(1)
+            case Movement.LEFT:
+                new_robot_pos = old_robot_pos.add_y(-1)
+            case Movement.UP:
+                new_robot_pos = old_robot_pos.add_x(-1)
 
         game_map.set_element(new_robot_pos, ElementType.ROBOT)
         game_map.set_element(old_robot_pos, ElementType.EMPTY)
