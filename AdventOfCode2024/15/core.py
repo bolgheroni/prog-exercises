@@ -64,7 +64,60 @@ def push_object(
             # now push right side
             push_object(game_map, target_pos, movement)
 
+    if next_object in {ObjectType.BOX_L, ObjectType.BOX_R} and movement in {
+        Movement.UP,
+        Movement.DOWN,
+    }:
+        # has to be able to push both sides
+        if next_object == ObjectType.BOX_L:
+            box_l_position = target_pos
+            box_r_position = target_pos.add_y(1)
+        else:
+            box_l_position = target_pos.add_y(-1)
+            box_r_position = target_pos
+
+        if can_push_double_box(game_map, box_l_position, box_r_position, movement):
+            force_push_object(game_map, box_l_position, movement)
+            force_push_object(game_map, box_r_position, movement)
+
     game_map.set_object(target_pos, object_type)
     game_map.set_object(object_position, ObjectType.EMPTY)
 
     return target_pos
+
+
+def can_push_double_box(
+    game_map: GameMap,
+    box_l_position: Position,
+    box_r_position: Position,
+    movement: Movement,
+) -> bool:
+    return True
+
+
+def force_push_object(
+    game_map: GameMap,
+    object_position: Position,
+    movement: Movement,
+):
+    object_type = game_map.check_position(object_position)
+    match movement:
+        case Movement.RIGHT:
+            target_pos = object_position.add_y(1)
+        case Movement.DOWN:
+            target_pos = object_position.add_x(1)
+        case Movement.LEFT:
+            target_pos = object_position.add_y(-1)
+        case Movement.UP:
+            target_pos = object_position.add_x(-1)
+
+    next_object = game_map.check_position(target_pos)
+
+    if next_object == ObjectType.WALL:
+        return object_position
+
+    if next_object != ObjectType.EMPTY:
+        force_push_object(game_map, target_pos, movement)
+
+    game_map.set_object(target_pos, object_type)
+    game_map.set_object(object_position, ObjectType.EMPTY)

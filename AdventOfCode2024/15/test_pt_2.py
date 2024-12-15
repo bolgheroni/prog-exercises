@@ -53,3 +53,111 @@ def test_push_double_box_left():
 
     for position, obj_type in expected_positions:
         assert gm.check_position(position) == obj_type
+
+
+def test_push_double_box_up_from_left():
+    gm = RowsGameMap(
+        [
+            [
+                ObjectType.EMPTY,
+                ObjectType.EMPTY,
+            ],
+            [
+                ObjectType.BOX_L,
+                ObjectType.BOX_R,
+            ],
+            [
+                ObjectType.ROBOT,
+                ObjectType.EMPTY,
+            ],
+        ]
+    )
+
+    movements = [Movement.UP]
+
+    expected_positions = [
+        [Position(0, 0), ObjectType.BOX_L],
+        [Position(0, 1), ObjectType.BOX_R],
+        [Position(1, 0), ObjectType.ROBOT],
+        [Position(1, 1), ObjectType.EMPTY],
+        [Position(2, 0), ObjectType.EMPTY],
+        [Position(2, 1), ObjectType.EMPTY],
+    ]
+    apply_movements(gm, movements)
+
+    for position, obj_type in expected_positions:
+        assert gm.check_position(position) == obj_type
+
+
+def test_push_double_box_up_from_right():
+    gm = RowsGameMap(
+        [
+            [
+                ObjectType.EMPTY,
+                ObjectType.EMPTY,
+            ],
+            [
+                ObjectType.BOX_L,
+                ObjectType.BOX_R,
+            ],
+            [
+                ObjectType.EMPTY,
+                ObjectType.ROBOT,
+            ],
+        ]
+    )
+
+    movements = [Movement.UP]
+
+    expected_positions = [
+        [Position(0, 0), ObjectType.BOX_L],
+        [Position(0, 1), ObjectType.BOX_R],
+        [Position(1, 0), ObjectType.EMPTY],
+        [Position(1, 1), ObjectType.ROBOT],
+        [Position(2, 0), ObjectType.EMPTY],
+        [Position(2, 1), ObjectType.EMPTY],
+    ]
+    apply_movements(gm, movements)
+
+    for position, obj_type in expected_positions:
+        assert gm.check_position(position) == obj_type
+
+
+def test_push_stacked_double_boxes_up():
+    gm = RowsGameMap(
+        [
+            [
+                ObjectType.EMPTY,
+                ObjectType.EMPTY,
+            ],
+            [
+                ObjectType.BOX_L,
+                ObjectType.BOX_R,
+            ],
+            [
+                ObjectType.BOX_L,
+                ObjectType.BOX_R,
+            ],
+            [
+                ObjectType.EMPTY,
+                ObjectType.ROBOT,
+            ],
+        ]
+    )
+
+    movements = [Movement.UP]
+
+    expected_positions = [
+        [Position(0, 0), ObjectType.BOX_L],
+        [Position(0, 1), ObjectType.BOX_R],
+        [Position(1, 0), ObjectType.BOX_L],
+        [Position(1, 1), ObjectType.BOX_R],
+        [Position(2, 0), ObjectType.EMPTY],
+        [Position(2, 1), ObjectType.ROBOT],
+        [Position(3, 0), ObjectType.EMPTY],
+        [Position(3, 1), ObjectType.EMPTY],
+    ]
+    apply_movements(gm, movements)
+
+    for position, obj_type in expected_positions:
+        assert gm.check_position(position) == obj_type
