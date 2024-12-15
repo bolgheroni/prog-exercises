@@ -10,6 +10,13 @@ class ObjectType(Enum):
     EMPTY = "."
 
 
+class Movement(str, Enum):
+    UP = "^"
+    DOWN = "v"
+    LEFT = "<"
+    RIGHT = ">"
+
+
 class Position:
     x: int
     y: int
@@ -24,6 +31,17 @@ class Position:
     def add_y(self, amount: int):
         return Position(y=self.y + amount, x=self.x)
 
+    def move(self, movement: Movement):
+        match movement:
+            case Movement.RIGHT:
+                return self.add_y(1)
+            case Movement.DOWN:
+                return self.add_x(1)
+            case Movement.LEFT:
+                return self.add_y(-1)
+            case Movement.UP:
+                return self.add_x(-1)
+
     def __eq__(self, value):
         if not isinstance(value, Position):
             return False
@@ -35,10 +53,3 @@ class Position:
 
     def __repr__(self):
         return str(self)
-
-
-class Movement(str, Enum):
-    UP = "^"
-    DOWN = "v"
-    LEFT = "<"
-    RIGHT = ">"
