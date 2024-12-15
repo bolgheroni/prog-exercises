@@ -67,7 +67,7 @@ class RowsGameMap(GameMap):
         for i in range(0, len(self._rows)):
             for j in range(0, len(self._rows[0])):
                 pos = Position(i, j)
-                if self.check_position(pos) == ObjectType.BOX:
+                if self.check_position(pos) in {ObjectType.BOX, ObjectType.BOX_L}:
                     score += i * 100 + j
 
         return score
