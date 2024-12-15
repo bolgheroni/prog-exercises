@@ -16,3 +16,14 @@ class EmptyGameMap(GameMap):
 
     def set_element(self, position, element):
         pass
+
+
+class RowsGameMap(GameMap):
+    def __init__(self, rows: list[list[ElementType]]):
+        self._rows = rows
+
+    def check_position(self, position: Position):
+        return self._rows[position.x][position.y]
+
+    def set_element(self, position: Position, element: ElementType):
+        self._rows[position.x][position.y] = element
